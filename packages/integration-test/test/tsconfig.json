@@ -1,0 +1,15 @@
+// This configuration file is for VSCode only.
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": ["DOM", "ESNext"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "strict": true,
+    "target": "ESNext",
+    "types": ["mocha", "node"]
+  },
+  "extends": "./tsconfig.custom.json"
+}
