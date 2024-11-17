@@ -1,6 +1,6 @@
 import React, { type HTMLAttributes } from 'react';
-import { render } from 'react-dom';
 import { defineAsCustomElement } from 'react-define-as-custom-element';
+import { render } from 'react-dom';
 
 declare global {
   interface Window {

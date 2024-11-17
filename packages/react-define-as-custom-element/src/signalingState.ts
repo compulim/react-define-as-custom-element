@@ -1,4 +1,10 @@
-export default function signalingState<T>(initialState?: T | undefined) {
+type SignalingState<T> = {
+  getState(): T | undefined;
+  next(): Promise<void>;
+  patchState(next: (state: T | undefined) => T): void;
+};
+
+export default function signalingState<T>(initialState?: T | undefined): SignalingState<T> {
   let resolvers = Promise.withResolvers<void>();
   let state = initialState;
 
@@ -21,3 +27,5 @@ export default function signalingState<T>(initialState?: T | undefined) {
     }
   };
 }
+
+export type { SignalingState };

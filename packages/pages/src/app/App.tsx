@@ -1,7 +1,21 @@
 import React, { DetailedHTMLProps, Fragment, HTMLAttributes, useCallback, useState } from 'react';
-import InputBox from './InputBox';
+import InputBox from './InputBox.tsx';
 
 import { defineAsCustomElement, defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    interface IntrinsicElements {
+      'input-box': DetailedHTMLProps<HTMLAttributes<HTMLElement> & { color?: string | undefined }, HTMLElement>;
+      'input-box-with-portal': DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & { color?: string | undefined },
+        HTMLElement
+      >;
+    }
+  }
+}
 
 defineAsCustomElement(InputBox, 'input-box', { color: 'color' }, { shadowRoot: { mode: 'open' } });
 
@@ -40,17 +54,3 @@ const App = () => {
 };
 
 export default App;
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-    interface IntrinsicElements {
-      'input-box': DetailedHTMLProps<HTMLAttributes<HTMLElement> & { color?: string | undefined }, HTMLElement>;
-      'input-box-with-portal': DetailedHTMLProps<
-        HTMLAttributes<HTMLElement> & { color?: string | undefined },
-        HTMLElement
-      >;
-    }
-  }
-}

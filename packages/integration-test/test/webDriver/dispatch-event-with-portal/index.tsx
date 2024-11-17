@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, type HTMLAttributes } from 'react';
-import { render } from 'react-dom';
 import { defineAsCustomElementWithPortal, useDispatchEvent } from 'react-define-as-custom-element';
+import { render } from 'react-dom';
 
 declare global {
   interface Window {

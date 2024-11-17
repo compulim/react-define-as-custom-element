@@ -1,2 +1,7 @@
 env:
   browser: true
+ignorePatterns:
+  - '**/dist/**'
+parser: '@typescript-eslint/parser'
+rules:
+  'react/no-deprecated': off

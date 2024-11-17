@@ -1,8 +1,10 @@
 import React, { createElement, type ComponentType } from 'react';
+// Supports react@>=16.8<=18.
+/* eslint-disable-next-line react/no-deprecated */
 import { render, unmountComponentAtNode } from 'react-dom';
-import ReactCustomElement from './ReactCustomElement';
-import { AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types';
-import CustomElementProvider from './hooks/CustomElementProvider';
+import ReactCustomElement from './ReactCustomElement.ts';
+import { AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
+import CustomElementProvider from './hooks/CustomElementProvider.tsx';
 
 // export default function defineAsCustomElement<N extends string, P extends Record<N, string | undefined>>(
 export default function defineAsCustomElement<T extends string>(

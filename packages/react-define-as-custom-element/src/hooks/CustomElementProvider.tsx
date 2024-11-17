@@ -1,5 +1,5 @@
 import React, { memo, type ReactNode, useMemo } from 'react';
-import CustomElementContext, { type CustomElementContextType } from './private/CustomElementContext';
+import CustomElementContext, { type CustomElementContextType } from './private/CustomElementContext.ts';
 
 type Props = {
   children?: ReactNode | undefined;

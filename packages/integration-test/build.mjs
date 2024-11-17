@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-namespace
 import * as esbuild from 'esbuild';
 import { readdir, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';

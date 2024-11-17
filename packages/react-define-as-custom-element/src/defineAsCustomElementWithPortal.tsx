@@ -1,10 +1,10 @@
 import mathRandom from 'math-random';
 import React, { createElement, Fragment, memo, useEffect, useState, type ComponentType } from 'react';
 import { createPortal } from 'react-dom';
-import CustomElementProvider from './hooks/CustomElementProvider';
-import ReactCustomElement from './ReactCustomElement';
-import signalingState from './signalingState';
-import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types';
+import CustomElementProvider from './hooks/CustomElementProvider.tsx';
+import ReactCustomElement from './ReactCustomElement.ts';
+import signalingState from './signalingState.ts';
+import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
 type InstanceMapEntry<T extends object> = Readonly<[HTMLElement | ShadowRoot, Readonly<T>]>;
 type InstanceMap<T extends string> = ReadonlyMap<string, InstanceMapEntry<AttributeAsProps<T>>>;

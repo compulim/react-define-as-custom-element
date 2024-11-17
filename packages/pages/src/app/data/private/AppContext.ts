@@ -1,6 +1,6 @@
 import { createContext, type Dispatch, type SetStateAction } from 'react';
 
-export type AppContextType = Readonly<{
+type AppContextType = Readonly<{
   setValue: Dispatch<SetStateAction<string>>;
   value: string;
 }>;
@@ -19,3 +19,5 @@ const AppContext = createContext<AppContextType>({
 });
 
 export default AppContext;
+
+export type { AppContextType };

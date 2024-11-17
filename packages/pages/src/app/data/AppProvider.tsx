@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useMemo, useState, type ReactNode } from 'react';
 
-import AppContext, { type AppContextType } from './private/AppContext.js';
+import AppContext, { type AppContextType } from './private/AppContext.ts';
 
 type AppProviderProps = Readonly<{
   children?: ReactNode | undefined;
@@ -19,5 +19,7 @@ const AppProvider = memo(({ children }: AppProviderProps) => {
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
 });
+
+AppProvider.displayName = 'AppProvider';
 
 export default memo(AppProvider);

@@ -1,5 +1,5 @@
 import React, { Fragment, type FormEventHandler, memo, useCallback, useMemo } from 'react';
-import useValue from './data/useValue';
+import useValue from './data/useValue.ts';
 
 type InputBoxProps = { color?: string | undefined };
 
@@ -15,7 +15,9 @@ const InputBox = memo(({ color }: InputBoxProps) => {
 
   return (
     <Fragment>
-      <h2><slot name="header" /></h2>
+      <h2>
+        <slot name="header" />
+      </h2>
       <input onInput={handleInput} style={style} type="text" value={value} />
     </Fragment>
   );

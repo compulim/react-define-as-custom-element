@@ -1,7 +1,7 @@
-import defineAsCustomElement from './defineAsCustomElement';
-import defineAsCustomElementWithPortal from './defineAsCustomElementWithPortal';
-import useDispatchEvent from './hooks/useDispatchEvent';
-import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types';
+import defineAsCustomElement from './defineAsCustomElement.tsx';
+import defineAsCustomElementWithPortal from './defineAsCustomElementWithPortal.tsx';
+import useDispatchEvent from './hooks/useDispatchEvent.ts';
+import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
 export {
   defineAsCustomElement,
