@@ -14,18 +14,19 @@ afterEach(() => driver?.quit());
 it('should work with shadowRoot', async () => {
   await driver.get('http://web/shadow-root/');
 
-  await driver.executeScript(
-    /** @type {() => Promise<void> | void} */
-    done => Promise.resolve(window.__run__?.()).then(done)
-  );
-
   await expect(
     driver.executeScript(() =>
-      document?.querySelector('main')?.getHTML({
-        serializableShadowRoots: true
-      })
+      document
+        ?.querySelector('body')
+        ?.getHTML({
+          serializableShadowRoots: true
+        })
+        .trim()
     )
   ).resolves.toBe(
-    '<shadow-root--my-description-list><template shadowrootmode="open" shadowrootserializable=""><dl><dt><slot name="title"></slot></dt><dd><slot name="value"></slot></dd></dl></template><span slot="title">Name</span><span slot="value">John Doe</span></shadow-root--my-description-list>'
+    `<shadow-root--my-description-list><template shadowrootmode="open" shadowrootserializable=""><dl><dt><slot name="title"></slot></dt><dd><slot name="value"></slot></dd></dl></template>
+      <span slot="title">Name</span>
+      <span slot="value">John Doe</span>
+    </shadow-root--my-description-list>`
   );
 });

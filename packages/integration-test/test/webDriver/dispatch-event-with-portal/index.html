@@ -1,9 +1,14 @@
 <!doctype html>
 <html lang="en">
-  <head>
-  </head>
+  <head> </head>
   <body>
+    <dispatch-event--my-button></dispatch-event--my-button>
     <main></main>
     <script src="./dist/index.js"></script>
+    <script>
+      window.addEventListener('telemetry', event => {
+        window.__lastTelemetryEvent__ = event;
+      });
+    </script>
   </body>
 </html>

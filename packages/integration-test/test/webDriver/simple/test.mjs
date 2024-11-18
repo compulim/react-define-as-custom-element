@@ -14,28 +14,16 @@ afterEach(() => driver?.quit());
 it('should mount as custom elements and observe attribute change', async () => {
   await driver.get('http://web/simple/');
 
-  await driver.executeScript(
-    /** @type {() => Promise<void> | void} */
-    done => Promise.resolve(window['__run_1__']?.()).then(done)
-  );
-
-  await driver.wait(
-    () => driver.executeScript(() => document?.querySelector('input')?.value === 'Hello, World!'),
-    1000
-  );
-
-  await expect(driver.executeScript(() => document?.querySelector('main')?.getHTML())).resolves.toBe(
-    '<simple--my-input value="Hello, World!"><input type="text" value="Hello, World!"></simple--my-input>'
+  await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
+    '<bundle--my-input value="Hello, World!"><input type="text" value="Hello, World!"></bundle--my-input>'
   );
 
   await driver.executeScript(
     /** @type {() => Promise<void> | void} */
-    done => Promise.resolve(window['__run_2__']?.()).then(done)
+    () => document.querySelector('bundle--my-input')?.setAttribute('value', 'Aloha!')
   );
 
-  await driver.wait(() => driver.executeScript(() => document?.querySelector('input')?.value === 'Aloha!'), 1000);
-
-  await expect(driver.executeScript(() => document?.querySelector('main')?.getHTML())).resolves.toBe(
-    '<simple--my-input value="Aloha!"><input type="text" value="Aloha!"></simple--my-input>'
+  await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
+    '<bundle--my-input value="Aloha!"><input type="text" value="Aloha!"></bundle--my-input>'
   );
 });
