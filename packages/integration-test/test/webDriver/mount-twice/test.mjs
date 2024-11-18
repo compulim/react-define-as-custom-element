@@ -21,7 +21,7 @@ it('should throw when mounting Portal twice', async () => {
 
   await expect(driver.executeScript(() => document.querySelector('main')?.childElementCount)).resolves.toBe(0);
 
-  expect(await driver.manage().logs().get('browser')).toEqual(
+  await expect(driver.manage().logs().get('browser')).resolves.toEqual(
     expect.arrayContaining([
       expect.objectContaining({
         level: logging.Level.SEVERE,

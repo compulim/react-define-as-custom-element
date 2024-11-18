@@ -4,7 +4,6 @@ import { render } from 'react-dom';
 
 declare global {
   interface Window {
-    __clicked__: boolean;
     __run__: (() => Promise<void> | void) | undefined;
   }
 }
@@ -23,7 +22,6 @@ window.__run__ = () => {
         <Fragment>
           <Portal />
           <Portal />
-          <mount-twice--my-dummy />
         </Fragment>,
         mainElement,
         resolve
@@ -33,13 +31,3 @@ window.__run__ = () => {
 };
 
 navigator.webdriver || window.__run__();
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-    interface IntrinsicElements {
-      'mount-twice--my-dummy': HTMLAttributes<HTMLElement>;
-    }
-  }
-}

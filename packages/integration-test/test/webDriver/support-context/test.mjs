@@ -19,6 +19,7 @@ it('should work with useContext with changing values', async () => {
     done => Promise.resolve(window.__run_1__?.()).then(done)
   );
 
+  // TODO: Should use waitUntil.
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML())).resolves.toBe(
     `
     <main></main>
@@ -31,6 +32,7 @@ it('should work with useContext with changing values', async () => {
     done => Promise.resolve(window.__run_2__?.()).then(done)
   );
 
+  // TODO: Should use waitUntil.
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML())).resolves.toBe(
     `
     <main></main>
