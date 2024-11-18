@@ -1,46 +1,12 @@
-import React, { useEffect, type HTMLAttributes } from 'react';
-import { defineAsCustomElement, useDispatchEvent } from 'react-define-as-custom-element';
-import { render } from 'react-dom';
-
-declare global {
-  interface Window {
-    __clicked__: boolean;
-    __run__: (() => Promise<void> | void) | undefined;
-  }
-}
+import React, { useCallback } from 'react';
+import { defineAsCustomElement } from 'react-define-as-custom-element';
 
 const MyButton = () => {
-  const dispatchEvent = useDispatchEvent();
-
-  useEffect(() => {
-    dispatchEvent(new CustomEvent('click', { bubbles: true }));
+  const handleClick = useCallback(() => {
+    dispatchEvent(new CustomEvent('telemetry', { bubbles: true, detail: 'Click me' }));
   }, [dispatchEvent]);
 
-  return null;
+  return <button onClick={handleClick}>Click me</button>;
 };
 
 defineAsCustomElement(MyButton, 'dispatch-event--my-button', {});
-
-window.__clicked__ = false;
-
-window.__run__ = () => {
-  window.addEventListener('click', () => {
-    window.__clicked__ = true;
-  });
-
-  const mainElement = document.querySelector('main') || undefined;
-
-  return mainElement && new Promise<void>(resolve => render(<dispatch-event--my-button />, mainElement, resolve));
-};
-
-navigator.webdriver || window.__run__();
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-    interface IntrinsicElements {
-      'dispatch-event--my-button': HTMLAttributes<HTMLElement>;
-    }
-  }
-}

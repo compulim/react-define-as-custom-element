@@ -4,7 +4,7 @@ Wraps a React component as custom element for packaging and delivering.
 
 ## Background
 
-Custom elements are the modern standard of extensible UI elements. It reduces the burden of UI component developers to package and deliver their UI components to customers.
+Web Components defines the modern era of web extensible UI elements. It reduces the burden of UI component developers to package and deliver their UI components to customers.
 
 However, custom elements are very barebone. It requires a lot of attention on UI state transitioning, which React excels at.
 
@@ -152,6 +152,10 @@ declare global {
 ### Why you are still using the deprecated `ReactDOM.render` instead of `createRoot()`?
 
 To support React version 16.8 to 18, we are using `ReactDOM.render`, which is available through out the supported versions.
+
+## Roadmap
+
+- Design API to support `formAssociated`, HTML Constraint Validation and Accessibility Object Model
 
 ## Contributions
 

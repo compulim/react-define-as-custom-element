@@ -1,6 +1,6 @@
 import { expect } from 'expect';
 import { afterEach, beforeEach, it } from 'mocha';
-import { Browser, Builder } from 'selenium-webdriver';
+import { Browser, Builder, By } from 'selenium-webdriver';
 
 /** @type {import("selenium-webdriver").ThenableWebDriver} */
 let driver;
@@ -14,12 +14,20 @@ afterEach(() => driver?.quit());
 it('should have dispatchEvent prop', async () => {
   await driver.get('http://web/dispatch-event/');
 
-  await expect(driver.executeScript(() => window.__clicked__)).resolves.toBe(false);
+  await driver.findElement(By.css('button')).click();
 
-  await driver.executeScript(
-    /** @type {() => Promise<void> | void} */
-    done => Promise.resolve(window['__run__']?.()).then(done)
-  );
+  // @ts-ignore
+  await driver.wait(() => driver.executeScript(() => !!window.__lastTelemetryEvent__, 1000));
 
-  await driver.wait(async () => (await driver.executeScript(() => window.__clicked__)) === true, 1000);
+  await expect(
+    driver.executeScript(() => {
+      const {
+        detail,
+        type
+        // @ts-ignore
+      } = window.__lastTelemetryEvent__;
+
+      return { detail, type };
+    })
+  ).resolves.toEqual(expect.objectContaining({ detail: 'Click me', type: 'telemetry' }));
 });
