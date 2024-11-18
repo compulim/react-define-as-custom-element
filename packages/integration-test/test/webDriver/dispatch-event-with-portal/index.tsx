@@ -1,10 +1,9 @@
-import React, { useCallback, type HTMLAttributes } from 'react';
+import React, { useCallback } from 'react';
 import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
 import { render } from 'react-dom';
 
 declare global {
   interface Window {
-    __clicked__: boolean;
     __run__: (() => Promise<void> | void) | undefined;
   }
 }
@@ -19,8 +18,6 @@ const MyButton = () => {
 };
 
 const { Portal } = defineAsCustomElementWithPortal(MyButton, 'dispatch-event--my-button', {});
-
-window.__clicked__ = false;
 
 window.__run__ = () => {
   const mainElement = document.querySelector('main') || undefined;
