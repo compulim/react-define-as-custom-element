@@ -1,4 +1,4 @@
-import React, { createContext, Fragment, useContext, type HTMLAttributes } from 'react';
+import React, { createContext, useContext } from 'react';
 import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
 import { render } from 'react-dom';
 
@@ -25,12 +25,9 @@ window.__run_1__ = async () => {
     mainElement &&
     new Promise(resolve =>
       render(
-        <Fragment>
-          <MyContext.Provider value={{ value: 'Hello, World!' }}>
-            <Portal />
-          </MyContext.Provider>
-          <support-context--my-input />
-        </Fragment>,
+        <MyContext.Provider value={{ value: 'Hello, World!' }}>
+          <Portal />
+        </MyContext.Provider>,
         mainElement,
         resolve
       )
@@ -45,12 +42,9 @@ window.__run_2__ = async () => {
     mainElement &&
     new Promise(resolve =>
       render(
-        <Fragment>
-          <MyContext.Provider value={{ value: 'Aloha!' }}>
-            <Portal />
-          </MyContext.Provider>
-          <support-context--my-input />
-        </Fragment>,
+        <MyContext.Provider value={{ value: 'Aloha!' }}>
+          <Portal />
+        </MyContext.Provider>,
         mainElement,
         resolve
       )
@@ -60,13 +54,3 @@ window.__run_2__ = async () => {
 
 navigator.webdriver || window.__run_1__?.();
 navigator.webdriver || window.__run_2__?.();
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-    interface IntrinsicElements {
-      'support-context--my-input': HTMLAttributes<HTMLElement>;
-    }
-  }
-}

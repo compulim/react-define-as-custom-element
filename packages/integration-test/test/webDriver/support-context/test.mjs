@@ -19,8 +19,11 @@ it('should work with useContext with changing values', async () => {
     done => Promise.resolve(window.__run_1__?.()).then(done)
   );
 
-  await expect(driver.executeScript(() => document?.querySelector('main')?.getHTML())).resolves.toBe(
-    '<support-context--my-input><input type="text" value="Hello, World!"></support-context--my-input>'
+  await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML())).resolves.toBe(
+    `
+    <main></main>
+    <support-context--my-input><input type="text" value="Hello, World!"></support-context--my-input>
+  \n\n`
   );
 
   await driver.executeScript(
@@ -28,7 +31,10 @@ it('should work with useContext with changing values', async () => {
     done => Promise.resolve(window.__run_2__?.()).then(done)
   );
 
-  await expect(driver.executeScript(() => document?.querySelector('main')?.getHTML())).resolves.toBe(
-    '<support-context--my-input><input type="text" value="Aloha!"></support-context--my-input>'
+  await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML())).resolves.toBe(
+    `
+    <main></main>
+    <support-context--my-input><input type="text" value="Aloha!"></support-context--my-input>
+  \n\n`
   );
 });
