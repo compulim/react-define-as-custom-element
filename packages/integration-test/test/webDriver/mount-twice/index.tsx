@@ -1,4 +1,4 @@
-import React, { Fragment, type HTMLAttributes } from 'react';
+import React, { Fragment } from 'react';
 import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
 import { render } from 'react-dom';
 
