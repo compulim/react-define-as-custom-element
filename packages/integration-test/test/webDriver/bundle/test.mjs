@@ -23,8 +23,6 @@ it('should mount as custom elements and observe attribute change', async () => {
     () => document.querySelector('bundle--my-input')?.setAttribute('value', 'Aloha!')
   );
 
-  // await driver.wait(() => driver.executeScript(() => document?.querySelector('input')?.value === 'Aloha!'), 1000);
-
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
     '<bundle--my-input value="Aloha!"><input type="text" value="Aloha!"></bundle--my-input>'
   );
