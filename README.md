@@ -4,20 +4,22 @@ Wraps a React component as custom element for packaging and delivering.
 
 ## Background
 
-Web Components defines the modern era of web extensible UI elements. It reduces the burden of UI component developers to package and deliver their UI components to customers.
+[Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) is a modern suite of technology for reusable web UI components. It reduces the burden of web UI component developers to package and deliver their UI components to their customers.
 
 However, custom elements are very barebone. It requires a lot of attention on UI state transitioning, which React excels at.
 
-By writing web UI component using React and delivering it as a custom element, we are enjoying the best of both worlds.
+By writing the UI component using React and delivering it as a custom element, we are enjoying the best of both worlds.
 
 ## How to use
 
 ### Basic
 
-Assume the following React component.
+Assumes the following React component.
 
 ```tsx
-const MyInput = ({ value }: { value?: string | undefined }) => <input type="text" value={value} />;
+type MyInputProps = { value?: string | undefined };
+
+const MyInput = ({ value }: MyInputProps) => <input type="text" value={value} />;
 ```
 
 To define the React component as a custom element, with `data-value` attribute mapped to `value` prop.
@@ -42,7 +44,7 @@ This would be equivalent to:
 
 ### Rendering as shadow root
 
-Rendering to shadow root is supported by passing `shadowRoot` options, which is equivalent to the options passed to `HTMLElement.attachShadow()` function.
+Rendering to shadow root is supported by passing `shadowRoot` options, which is equivalent to the options passed to [the `HTMLElement.attachShadow()` function](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow).
 
 ```ts
 import { defineAsCustomElement } from 'react-define-as-custom-element';
@@ -50,9 +52,35 @@ import { defineAsCustomElement } from 'react-define-as-custom-element';
 defineAsCustomElement(MyInput, 'my-input', { 'data-value': 'value' }, { shadowRoot: { mode: 'open' } });
 ```
 
+### Extending built-in element
+
+To [customize a built-in elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#types_of_custom_element), use the `builtInElement` options.
+
+```tsx
+const MyButton = () => <span>Click me</span>;
+
+defineAsCustomElement(
+  MyButton,
+  'my-button',
+  {},
+  {
+    builtInElement: {
+      customElementConstructor: HTMLButtonElement,
+      extends: 'button'
+    }
+  }
+);
+```
+
+Then, in HTML, use [the `is` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to specify the subclass of the built-in element:
+
+```html
+<button is="my-button"></button>
+```
+
 ### Connecting to React context
 
-> This approach should be rarely used. This approach assumes the host know its UI component is written in React, and vice versa. They should be integrated by using React directly when possible.
+> This approach should be rarely used. It assumes the host know the UI component is written in React, and vice versa. They should be integrated using React directly when possible.
 
 Assume the React component is updated to receive a `color` value from a React context:
 
@@ -78,7 +106,7 @@ render(
 );
 ```
 
-Note: you must mount exactly one instance of `<Portal>` in your React tree, where it will be receiving React context values from its ancestors.
+The `<Portal>` component must be mounted exactly once in your React app, where it will be receiving React context values from its ancestors.
 
 Then, in the HTML:
 
@@ -86,7 +114,7 @@ Then, in the HTML:
 <my-input data-value="Hello, World!"></my-input>
 ```
 
-The underlying React component will be able to access the React context provided by `<MyAppContextProvider>` while rendering as a custom element. This is done by using `createPortal` feature from React.
+The underlying React component will be able to access the React context provided by `<MyAppContextProvider>` while rendering as a custom element. This is done by [`React.createPortal()` function](https://react.dev/reference/react-dom/createPortal).
 
 ### Retrieving the custom element instance
 
@@ -111,25 +139,25 @@ const MyInput = ({ value }: { value?: string | undefined }) => {
 
 ## Behaviors
 
-### Differences between React component and custom element
+### What do I need to know to start wrapping my component as custom element?
 
 There are some key differences between React component and a custom element:
 
 - All props must be an optional string
   - Attributes are optional and must be of type string
 - When 2+ attributes are changed at the same time, its underlying React component will be re-rendered 2+ times
-  - For every attribute change, browser would call `attributeChangedCallback()`
-  - There will be a brief moment and re-render that one prop is using a new value, while the other prop is using an old value
+  - For every attribute change, browser will call `attributeChangedCallback()` once
+  - Eventual consistency: there will be a brief moment that one prop is on a new value, while the other prop is on an old value
 
 ### Given major differences between React and custom element, why should I still wrap it?
 
-Consider this factors: cost of writing a new UI component, making them parity, and maintaining both of them.
+Consider these factors: cost of writing a new UI component, making them parity, and maintaining both of them.
 
 ### Some of the props need to be a number instead of string
 
 Writes an adapter component that parses the string into a number.
 
-### Does it support React Native?
+### Does it supports React Native?
 
 No, custom elements is a HTML technology and is only available in modern browsers.
 
