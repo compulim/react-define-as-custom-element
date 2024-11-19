@@ -148,6 +148,9 @@ There are some key differences between React component and a custom element:
 - When 2+ attributes are changed at the same time, its underlying React component will be re-rendered 2+ times
   - For every attribute change, browser will call `attributeChangedCallback()` once
   - Eventual consistency: there will be a brief moment that one prop is on a new value, while the other prop is on an old value
+- The shadow DOM element denoted by [the `slot` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) are virtually relocated (a.k.a. shadowed) to [the `<slot>` placeholder element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)
+  - The parent of the shadow DOM is the custom element, and not the `<slot>` element
+  - Events propagated from the shadow DOM will not available to the `<slot>` element or its ancestor up to the custom element
 
 ### Given major differences between React and custom element, why should I still wrap it?
 
