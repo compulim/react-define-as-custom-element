@@ -152,7 +152,7 @@ declare global {
 }
 ```
 
-### Why you are still using the deprecated `ReactDOM.render` instead of `createRoot()`?
+### Why are you still using the deprecated `ReactDOM.render` instead of `createRoot()`?
 
 To support React version 16.8 to 18, we are using `ReactDOM.render`, which is available through out the supported versions.
 
