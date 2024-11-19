@@ -1,8 +1,8 @@
 import mathRandom from 'math-random';
 import React, { createElement, Fragment, memo, useEffect, useState, type ComponentType } from 'react';
 import { createPortal } from 'react-dom';
+import createReactCustomElement from './createReactCustomElement.ts';
 import CustomElementProvider from './hooks/CustomElementProvider.tsx';
-import ReactCustomElement from './ReactCustomElement.ts';
 import signalingState from './signalingState.ts';
 import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
@@ -20,7 +20,7 @@ export default function defineAsCustomElement<T extends string>(
 
   customElements.define(
     tagName,
-    class extends ReactCustomElement<T> {
+    class extends createReactCustomElement<T>(init?.builtInElement?.customElementConstructor) {
       static get observedAttributes(): readonly string[] {
         return observedAttributes;
       }
@@ -43,7 +43,8 @@ export default function defineAsCustomElement<T extends string>(
       }
 
       #key: string = mathRandom().toString(36).substring(2);
-    }
+    },
+    init?.builtInElement?.extends ? { extends: init?.builtInElement?.extends } : {}
   );
 
   let portalMounted = false;
@@ -83,7 +84,9 @@ export default function defineAsCustomElement<T extends string>(
             .entries()
             .map(([key, [element, props]]) =>
               createPortal(
-                <CustomElementProvider element={element}>{createElement(componentType, props)}</CustomElementProvider>,
+                <CustomElementProvider customElement={element}>
+                  {createElement(componentType, props)}
+                </CustomElementProvider>,
                 element,
                 key
               )

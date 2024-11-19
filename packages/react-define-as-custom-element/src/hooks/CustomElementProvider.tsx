@@ -3,13 +3,15 @@ import CustomElementContext, { type CustomElementContextType } from './private/C
 
 type Props = {
   children?: ReactNode | undefined;
-  element: HTMLElement | ShadowRoot;
+  customElement: HTMLElement | ShadowRoot;
 };
 
-const CustomElementProvider = memo(({ children, element }: Props) => {
+const CustomElementProvider = memo(({ children, customElement }: Props) => {
   const context = useMemo<CustomElementContextType>(
-    () => ({ dispatchEvent: element.dispatchEvent.bind(element) }),
-    [element]
+    () => ({
+      customElementState: Object.freeze([customElement])
+    }),
+    [customElement]
   );
 
   return <CustomElementContext.Provider value={context}>{children}</CustomElementContext.Provider>;

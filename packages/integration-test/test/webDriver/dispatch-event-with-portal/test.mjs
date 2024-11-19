@@ -12,7 +12,7 @@ beforeEach(() => {
 afterEach(() => driver?.quit());
 
 it('should have dispatchEvent prop', async () => {
-  await driver.get('http://web/dispatch-event/');
+  await driver.get('http://web/dispatch-event-with-portal/');
 
   await driver.executeScript(
     /** @type {() => Promise<void> | void} */
@@ -28,11 +28,14 @@ it('should have dispatchEvent prop', async () => {
     driver.executeScript(() => {
       const {
         detail,
+        srcElement: { tagName },
         type
         // @ts-ignore
       } = window.__lastTelemetryEvent__;
 
-      return { detail, type };
+      return { detail, tagName, type };
     })
-  ).resolves.toEqual(expect.objectContaining({ detail: 'Click me', type: 'telemetry' }));
+  ).resolves.toEqual(
+    expect.objectContaining({ detail: 'Click me', tagName: 'DISPATCH-EVENT-WITH-PORTAL--MY-BUTTON', type: 'telemetry' })
+  );
 });

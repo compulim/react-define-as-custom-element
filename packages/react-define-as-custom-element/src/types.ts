@@ -5,6 +5,12 @@ export type AttributesMap<N extends string> = Readonly<{
 }>;
 
 export type DefineAsCustomElementInit = Readonly<{
+  builtInElement?:
+    | {
+        customElementConstructor: CustomElementConstructor;
+        extends: string;
+      }
+    | undefined;
   shadowRoot?: ShadowRootInit | undefined;
 }>;
 

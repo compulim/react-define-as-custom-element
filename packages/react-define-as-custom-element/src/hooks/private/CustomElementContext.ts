@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 type CustomElementContextType = {
-  dispatchEvent: (event: Event) => boolean;
+  customElementState: readonly [HTMLElement | ShadowRoot];
 };
 
 const CustomElementContext = createContext<CustomElementContextType>(

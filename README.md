@@ -93,19 +93,22 @@ Then, in the HTML:
 
 The underlying React component will be able to access the React context provided by `<MyAppContextProvider>` while rendering as a custom element. This is done by using `createPortal` feature from React.
 
-### Dispatching events as the custom element
+### Retrieving the custom element instance
 
-To dispatch event via the custom element:
+Call the `useCustomElement` hook inside the converted React component to retrieve the instance of the custom element.
+
+The following example dispatch an event from the custom element:
 
 ```ts
-import { useDispatchEvent } from 'react-define-as-custom-element';
+import { useCustomElement } from 'react-define-as-custom-element';
 
 const MyInput = ({ value }: { value?: string | undefined }) => {
-  const dispatchEvent = useDispatchEvent();
+  const [customElement] = useCustomElement();
 
-  const handleChange = useCallback(({ currentTarget: { value } }) => {
-    dispatchEvent(new CustomEvent('input', { detail: { value } }));
-  }, [dispatchEvent]);
+  const handleChange = useCallback(
+    ({ currentTarget: { value } }) => customElement.dispatchEvent(new CustomEvent('input', { detail: { value } })),
+    [customElement]
+  );
 
   return <input onChange={handleChange} type="text" value={value} />;
 };
@@ -155,6 +158,7 @@ To support React version 16.8 to 18, we are using `ReactDOM.render`, which is av
 
 ## Roadmap
 
+- API to listen to events on the custom element
 - Design API to support `formAssociated`, HTML Constraint Validation and Accessibility Object Model
 
 ## Contributions

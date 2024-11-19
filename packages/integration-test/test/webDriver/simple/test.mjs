@@ -15,15 +15,15 @@ it('should mount as custom elements and observe attribute change', async () => {
   await driver.get('http://web/simple/');
 
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
-    '<bundle--my-input value="Hello, World!"><input type="text" value="Hello, World!"></bundle--my-input>'
+    '<simple--my-input value="Hello, World!"><input type="text" value="Hello, World!"></simple--my-input>'
   );
 
   await driver.executeScript(
     /** @type {() => Promise<void> | void} */
-    () => document.querySelector('bundle--my-input')?.setAttribute('value', 'Aloha!')
+    () => document.querySelector('simple--my-input')?.setAttribute('value', 'Aloha!')
   );
 
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
-    '<bundle--my-input value="Aloha!"><input type="text" value="Aloha!"></bundle--my-input>'
+    '<simple--my-input value="Aloha!"><input type="text" value="Aloha!"></simple--my-input>'
   );
 });

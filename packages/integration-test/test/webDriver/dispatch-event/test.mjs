@@ -23,11 +23,14 @@ it('should have dispatchEvent prop', async () => {
     driver.executeScript(() => {
       const {
         detail,
+        srcElement: { tagName },
         type
         // @ts-ignore
       } = window.__lastTelemetryEvent__;
 
-      return { detail, type };
+      return { detail, tagName, type };
     })
-  ).resolves.toEqual(expect.objectContaining({ detail: 'Click me', type: 'telemetry' }));
+  ).resolves.toEqual(
+    expect.objectContaining({ detail: 'Click me', tagName: 'DISPATCH-EVENT--MY-BUTTON', type: 'telemetry' })
+  );
 });
