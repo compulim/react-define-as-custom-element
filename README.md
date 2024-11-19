@@ -47,23 +47,20 @@ Rendering to shadow root is supported by passing `shadowRoot` options, which is 
 ```ts
 import { defineAsCustomElement } from 'react-define-as-custom-element';
 
-defineAsCustomElement(
-  MyInput,
-  'my-input',
-  { 'data-value': 'value' },
-  { shadowRoot: { mode: 'open', serializable: true } }
-);
+defineAsCustomElement(MyInput, 'my-input', { 'data-value': 'value' }, { shadowRoot: { mode: 'open' } });
 ```
 
 ### Connecting to React context
 
-Assume the React component is updated to receive the color from a React context:
+> This approach should be rarely used. This approach assumes the host know its UI component is written in React, and vice versa. They should be integrated by using React directly when possible.
+
+Assume the React component is updated to receive a `color` value from a React context:
 
 ```tsx
 const MyInput = ({ value }: { value?: string | undefined }) => {
   const { color } = useContext(MyReactContext);
 
-  return <input type="text" style={{ color }} value={value} />
+  return <input type="text" style={{ color }} value={value} />;
 };
 ```
 
@@ -75,11 +72,9 @@ import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element'
 const { Portal } = defineAsCustomElementWithPortal(MyInput, 'my-input', { 'data-value': 'value' });
 
 render(
-  <Fragment>
-    <MyReactContext.Provider value={{ color: 'Red' }}>
-      <Portal />
-    </MyReactContext.Provider>
-  </Fragment>
+  <MyReactContext.Provider value={{ color: 'Red' }}>
+    <Portal />
+  </MyReactContext.Provider>
 );
 ```
 
@@ -136,7 +131,7 @@ Writes an adapter component that parses the string into a number.
 
 ### Does it support React Native?
 
-No, custom elements is a HTML technology and is not available for UI component written in React Native.
+No, custom elements is a HTML technology and is only available in modern browsers.
 
 ### TypeScript is complaining about the custom element
 
@@ -158,8 +153,7 @@ To support React version 16.8 to 18, we are using `ReactDOM.render`, which is av
 
 ## Roadmap
 
-- API to listen to events on the custom element
-- Design API to support `formAssociated`, HTML Constraint Validation and Accessibility Object Model
+- API to support `formAssociated`, HTML Constraint Validation and Accessibility Object Model
 
 ## Contributions
 
