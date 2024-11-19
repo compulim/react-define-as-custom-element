@@ -54,7 +54,7 @@ defineAsCustomElement(MyInput, 'my-input', { 'data-value': 'value' }, { shadowRo
 
 ### Extending built-in element
 
-To [customize a built-in elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#types_of_custom_element), use the `builtInElement` options.
+To [customize built-in elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#types_of_custom_element), use the `builtInElement` options.
 
 ```tsx
 const MyButton = () => <span>Click me</span>;
@@ -72,7 +72,7 @@ defineAsCustomElement(
 );
 ```
 
-Then, in HTML, use the [`is` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to specify the subclass of the built-in element:
+Then, in HTML, use the [`is` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to specify the subclass custom element:
 
 ```html
 <button is="my-button"></button>
