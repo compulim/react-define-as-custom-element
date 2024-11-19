@@ -16,7 +16,7 @@ By writing web UI component using React and delivering it as a custom element, w
 
 Assume the following React component.
 
-```ts
+```tsx
 const MyInput = ({ value }: { value?: string | undefined }) => <input type="text" value={value} />;
 ```
 
@@ -59,7 +59,7 @@ defineAsCustomElement(
 
 Assume the React component is updated to receive the color from a React context:
 
-```ts
+```tsx
 const MyInput = ({ value }: { value?: string | undefined }) => {
   const { color } = useContext(MyReactContext);
 
@@ -69,7 +69,7 @@ const MyInput = ({ value }: { value?: string | undefined }) => {
 
 To connect the underlying React component to a React context, use the `defineAsCustomElementWithPortal` function:
 
-```ts
+```tsx
 import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
 
 const { Portal } = defineAsCustomElementWithPortal(MyInput, 'simple--my-input', { 'data-value': 'value' });
@@ -99,7 +99,7 @@ Call the `useCustomElement` hook inside the converted React component to retriev
 
 The following example dispatch an event from the custom element:
 
-```ts
+```tsx
 import { useCustomElement } from 'react-define-as-custom-element';
 
 const MyInput = ({ value }: { value?: string | undefined }) => {
