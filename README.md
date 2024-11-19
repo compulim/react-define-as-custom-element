@@ -25,13 +25,13 @@ To define the React component as a custom element, with `data-value` attribute m
 ```ts
 import { defineAsCustomElement } from 'react-define-as-custom-element';
 
-defineAsCustomElement(MyInput, 'simple--my-input', { 'data-value': 'value' });
+defineAsCustomElement(MyInput, 'my-input', { 'data-value': 'value' });
 ```
 
 Then, in the HTML, render it as:
 
 ```html
-<simple--my-input data-value="Hello, World!"></simple--my-input>
+<my-input data-value="Hello, World!"></my-input>
 ```
 
 This would be equivalent to:
@@ -49,7 +49,7 @@ import { defineAsCustomElement } from 'react-define-as-custom-element';
 
 defineAsCustomElement(
   MyInput,
-  'simple--my-input',
+  'my-input',
   { 'data-value': 'value' },
   { shadowRoot: { mode: 'open', serializable: true } }
 );
@@ -72,7 +72,7 @@ To connect the underlying React component to a React context, use the `defineAsC
 ```tsx
 import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
 
-const { Portal } = defineAsCustomElementWithPortal(MyInput, 'simple--my-input', { 'data-value': 'value' });
+const { Portal } = defineAsCustomElementWithPortal(MyInput, 'my-input', { 'data-value': 'value' });
 
 render(
   <Fragment>
@@ -88,7 +88,7 @@ Note: you must mount exactly one instance of `<Portal>` in your React tree, wher
 Then, in the HTML:
 
 ```html
-<simple--my-input data-value="Hello, World!"></simple--my-input>
+<my-input data-value="Hello, World!"></my-input>
 ```
 
 The underlying React component will be able to access the React context provided by `<MyAppContextProvider>` while rendering as a custom element. This is done by using `createPortal` feature from React.
@@ -146,7 +146,7 @@ Adjusts and adds the following declaration to your project.
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'simple--my-input': HTMLAttributes<HTMLElement> & { value?: string | undefined };
+      'my-input': HTMLAttributes<HTMLElement> & { value?: string | undefined };
     }
   }
 }
