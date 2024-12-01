@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head></head>
+  <body>
+    <main>
+      <add-event-listener--my-form>
+        <button type="button">Hello, World!</button>
+      </add-event-listener--my-form>
+    </main>
+    <script src="./dist/index.js"></script>
+    <script>
+      window.__handleClick__ = (...args) => window.__handleClick__.mock.calls.push(args);
+      window.__handleClick__.mock = { calls: [] };
+    </script>
+  </body>
+</html>
