@@ -160,6 +160,19 @@ Consider these factors: cost of writing a new UI component, making them parity, 
 
 Writes an adapter component that parses the string into a number.
 
+### How to batch attribute changes?
+
+The best practice is to design props with separation of responsibilities and handle eventual consistency. Only use the method described below as a last resort.
+
+Use the `withPropsDebounce()` HOC helper to debounce props changes to next additional render loop. It is strongly recommended to use a memoized component to eliminate wasted rendering.
+
+```ts
+import { memo } from 'react';
+import { defineAsCustomElement, withPropsDebounce } from 'react-define-as-custom-element';
+
+defineAsCustomElement(withPropsDebounce(memo(MyInput)), 'my-input', { 'data-value': 'value' });
+```
+
 ### Does it supports React Native?
 
 No, custom elements is a HTML technology and is only available in modern browsers.
