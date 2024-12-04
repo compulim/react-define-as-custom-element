@@ -27,7 +27,16 @@ const Header = ({ value }: { value?: string | undefined }) => {
 
 defineAsCustomElement(Header, 'reconnect--header', { value: 'value' });
 
-const customElementConstructor = customElements.get('reconnect--header');
+interface CustomElementConstructorWithLifecycleMethods {
+  new (...params: any[]): HTMLElement & {
+    adoptedCallback?(): void;
+    attributeChangedCallback?(name: string, oldValue: string | undefined, newValue: string | undefined): void;
+    connectedCallback?(): void;
+    disconnectedCallback?(): void;
+  };
+}
+
+const customElementConstructor = customElements.get('reconnect--header') as CustomElementConstructorWithLifecycleMethods | undefined;
 
 window.__connectedCallback__ = { mock: { calls: [] } };
 window.__disconnectedCallback__ = { mock: { calls: [] } };
@@ -39,8 +48,7 @@ if (customElementConstructor) {
   customElements.define(
     'reconnect--intercepted-header',
     class InterceptedClass extends customElementConstructor {
-      connectedCallback() {
-        // @ts-expect-error
+      override connectedCallback() {
         super.connectedCallback?.();
 
         window.__connectedCallback__.mock.calls.push([]);
@@ -48,8 +56,7 @@ if (customElementConstructor) {
         console.log('connectedCallback');
       }
 
-      disconnectedCallback() {
-        // @ts-expect-error
+      override disconnectedCallback() {
         super.disconnectedCallback?.();
 
         window.__disconnectedCallback__.mock.calls.push([]);
