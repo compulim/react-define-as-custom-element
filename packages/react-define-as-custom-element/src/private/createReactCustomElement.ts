@@ -1,4 +1,4 @@
-import { type AttributeAsProps, type AttributesMap } from './types.ts';
+import { type AttributeAsProps, type AttributesMap } from '../types.ts';
 
 type MountCallback<P extends object> = (props: P, element: HTMLElement | ShadowRoot) => void;
 type UnmountCallback = (element: HTMLElement | ShadowRoot) => void;

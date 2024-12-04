@@ -1,7 +1,7 @@
 import mathRandom from 'math-random';
 import React, { Fragment, memo, useEffect, useState, type ComponentType } from 'react';
 import { createPortal } from 'react-dom';
-import createReactCustomElement from './createReactCustomElement.ts';
+import createReactCustomElement from './private/createReactCustomElement.ts';
 import CustomElementProvider from './hooks/CustomElementProvider.tsx';
 import signalingState from './signalingState.ts';
 import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';

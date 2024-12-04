@@ -2,7 +2,7 @@ import React, { type ComponentType } from 'react';
 // Supports react@>=16.8<=18.
 /* eslint-disable-next-line react/no-deprecated */
 import { render, unmountComponentAtNode } from 'react-dom';
-import createReactCustomElement from './createReactCustomElement.ts';
+import createReactCustomElement from './private/createReactCustomElement.ts';
 import CustomElementProvider from './hooks/CustomElementProvider.tsx';
 import { AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
