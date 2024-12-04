@@ -28,7 +28,7 @@ const Header = ({ value }: { value?: string | undefined }) => {
 defineAsCustomElement(Header, 'reconnect--header', { value: 'value' });
 
 interface CustomElementConstructorWithLifecycleMethods {
-  new (...params: any[]): HTMLElement & {
+  new (...params: unknown[]): HTMLElement & {
     adoptedCallback?(): void;
     attributeChangedCallback?(name: string, oldValue: string | undefined, newValue: string | undefined): void;
     connectedCallback?(): void;
