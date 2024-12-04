@@ -40,7 +40,7 @@ if (customElementConstructor) {
     'reconnect--intercepted-header',
     class InterceptedClass extends customElementConstructor {
       connectedCallback() {
-        // @ts-ignore
+        // @ts-expect-error
         super.connectedCallback?.();
 
         window.__connectedCallback__.mock.calls.push([]);
@@ -49,7 +49,7 @@ if (customElementConstructor) {
       }
 
       disconnectedCallback() {
-        // @ts-ignore
+        // @ts-expect-error
         super.disconnectedCallback?.();
 
         window.__disconnectedCallback__.mock.calls.push([]);
