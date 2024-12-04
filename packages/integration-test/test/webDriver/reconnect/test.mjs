@@ -43,7 +43,7 @@ it('should mount as custom elements and observe attribute change', async () => {
   await expect(driver.executeScript(() => window.__unmount__)).resolves.toEqual({ mock: { calls: [] } });
 
   // WHEN: Setting attribute while the element is disconnected.
-  // @ts-ignore
+  // @ts-expect-error
   await driver.executeScript(() => window.__element__.setAttribute('value', 'Aloha!'));
 
   // THEN: Should not trigger render as the element is not connected.
@@ -52,7 +52,7 @@ it('should mount as custom elements and observe attribute change', async () => {
   });
 
   // WHEN: Reconnecting the element.
-  // @ts-ignore
+  // @ts-expect-error
   await driver.executeScript(() => document.querySelector('main')?.replaceChildren(window.__element__));
 
   // THEN: Should appear in DOM with updated value.
@@ -75,10 +75,10 @@ it('should mount as custom elements and observe attribute change', async () => {
   await driver.executeScript(() => {
     document.querySelector('main')?.replaceChildren();
 
-    // @ts-ignore
+    // @ts-expect-error
     window.__element__[Symbol.dispose]();
 
-    // @ts-ignore
+    // @ts-expect-error
     delete window.__element__;
   });
 
