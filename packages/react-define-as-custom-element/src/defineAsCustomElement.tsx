@@ -1,4 +1,4 @@
-import React, { createElement, type ComponentType } from 'react';
+import React, { type ComponentType } from 'react';
 // Supports react@>=16.8<=18.
 /* eslint-disable-next-line react/no-deprecated */
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -28,9 +28,11 @@ export default function defineAsCustomElement<T extends string>(
           init?.shadowRoot,
           (props, element) =>
             render(
-              <CustomElementProvider customElement={element}>
-                {createElement(componentType, props)}
-              </CustomElementProvider>,
+              <CustomElementProvider<typeof props>
+                componentType={componentType}
+                props={props}
+                customElement={element}
+              />,
               element
             ),
           element => unmountComponentAtNode(element)

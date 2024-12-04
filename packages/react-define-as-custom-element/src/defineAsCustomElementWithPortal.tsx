@@ -1,5 +1,5 @@
 import mathRandom from 'math-random';
-import React, { createElement, Fragment, memo, useEffect, useState, type ComponentType } from 'react';
+import React, { Fragment, memo, useEffect, useState, type ComponentType } from 'react';
 import { createPortal } from 'react-dom';
 import createReactCustomElement from './createReactCustomElement.ts';
 import CustomElementProvider from './hooks/CustomElementProvider.tsx';
@@ -84,9 +84,7 @@ export default function defineAsCustomElement<T extends string>(
             .entries()
             .map(([key, [element, props]]) =>
               createPortal(
-                <CustomElementProvider customElement={element}>
-                  {createElement(componentType, props)}
-                </CustomElementProvider>,
+                <CustomElementProvider componentType={componentType} customElement={element} props={props} />,
                 element,
                 key
               )
