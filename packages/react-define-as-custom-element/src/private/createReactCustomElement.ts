@@ -1,4 +1,4 @@
-import { type AttributeAsProps, type AttributesMap } from './types.ts';
+import { type AttributeAsProps, type AttributesMap } from '../types.ts';
 
 type MountCallback<P extends object> = (props: P, element: HTMLElement | ShadowRoot) => void;
 type UnmountCallback = (element: HTMLElement | ShadowRoot) => void;
@@ -6,6 +6,8 @@ type UnmountCallback = (element: HTMLElement | ShadowRoot) => void;
 export default function createReactCustomElement<T extends string>(
   customElementConstructor: CustomElementConstructor | undefined
 ) {
+  const registry = new FinalizationRegistry((dispose: () => void) => dispose());
+
   return class ReactCustomElement extends (customElementConstructor || HTMLElement) {
     constructor(
       attributesMap: AttributesMap<T>,
@@ -17,25 +19,35 @@ export default function createReactCustomElement<T extends string>(
 
       this.#attributesMap = attributesMap;
       this.#mountCallback = mountCallback;
-      this.#shadowRootInit = shadowRootInit;
       this.#unmountCallback = unmountCallback;
+
+      this.#element = shadowRootInit ? this.attachShadow(shadowRootInit) : this;
+
+      registry.register(new WeakRef(this), this[Symbol.dispose].bind(this));
     }
 
     #attributesMap: AttributesMap<T>;
-    #element: HTMLElement | ShadowRoot | undefined;
+    #connected: boolean = false;
+    #element: ReactCustomElement | ShadowRoot;
     #mountCallback: MountCallback<AttributeAsProps<T>>;
     #propsMap: Map<T, string | undefined> = new Map();
-    #shadowRootInit: ShadowRootInit | undefined;
-    #unmountCallback: UnmountCallback;
+    #unmountCallback: UnmountCallback | undefined;
+
+    [Symbol.dispose]() {
+      this.#unmountCallback?.(this.#element);
+      this.#unmountCallback = undefined;
+    }
 
     #getProps(): AttributeAsProps<T> {
       return Object.freeze(Object.fromEntries(this.#propsMap.entries()) as AttributeAsProps<T>);
     }
 
     #refresh() {
-      const element = this.#element;
+      if (this.#connected) {
+        const element = this.#element;
 
-      element && this.#mountCallback(this.#getProps(), element);
+        element && this.#mountCallback(this.#getProps(), element);
+      }
     }
 
     attributeChangedCallback(name: string, _oldValue: string | undefined, newValue: string | undefined) {
@@ -43,23 +55,17 @@ export default function createReactCustomElement<T extends string>(
 
       if (propName) {
         this.#propsMap.set(propName, newValue);
-
         this.#refresh();
       }
     }
 
     connectedCallback() {
-      const shadowRootInit = this.#shadowRootInit;
-
-      this.#element = shadowRootInit ? this.attachShadow(shadowRootInit) : this;
-
+      this.#connected = true;
       this.#refresh();
     }
 
     disconnectedCallback() {
-      const element = this.#element;
-
-      element && this.#unmountCallback(element);
+      this.#connected = false;
     }
   };
 }
