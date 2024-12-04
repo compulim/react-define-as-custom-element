@@ -36,7 +36,9 @@ interface CustomElementConstructorWithLifecycleMethods {
   };
 }
 
-const customElementConstructor = customElements.get('reconnect--header') as CustomElementConstructorWithLifecycleMethods | undefined;
+const customElementConstructor = customElements.get('reconnect--header') as
+  | CustomElementConstructorWithLifecycleMethods
+  | undefined;
 
 window.__connectedCallback__ = { mock: { calls: [] } };
 window.__disconnectedCallback__ = { mock: { calls: [] } };
@@ -44,7 +46,7 @@ window.__mount__ = { mock: { calls: [] } };
 window.__render__ = { mock: { calls: [] } };
 window.__unmount__ = { mock: { calls: [] } };
 
-if (customElementConstructor) {
+customElementConstructor &&
   customElements.define(
     'reconnect--intercepted-header',
     class InterceptedClass extends customElementConstructor {
@@ -65,4 +67,3 @@ if (customElementConstructor) {
       }
     }
   );
-}
