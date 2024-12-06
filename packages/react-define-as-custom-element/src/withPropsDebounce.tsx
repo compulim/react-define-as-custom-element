@@ -1,4 +1,4 @@
-import React, { type ComponentType, memo, useEffect, useState } from 'react';
+import { type ComponentType, createElement, memo, useEffect, useState } from 'react';
 
 const withPropsDebounce = <P extends object>(WrappedComponent: ComponentType<P>) => {
   const PropsDebounceComponent = (props: P) => {
@@ -10,7 +10,7 @@ const withPropsDebounce = <P extends object>(WrappedComponent: ComponentType<P>)
       return () => clearTimeout(handler);
     }, [props, setDebouncedProps]);
 
-    return <WrappedComponent {...debouncedProps} />;
+    return createElement(WrappedComponent, debouncedProps);
   };
 
   PropsDebounceComponent.displayName = `${WrappedComponent.displayName}WithPropsDebounce`;
