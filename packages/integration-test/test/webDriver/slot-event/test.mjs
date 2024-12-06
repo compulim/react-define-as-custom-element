@@ -14,14 +14,6 @@ afterEach(() => driver?.quit());
 it('should receive slot event from custom element', async () => {
   await driver.get('http://web/slot-event/');
 
-  await driver.wait(() =>
-    driver.executeScript(() => {
-      const customElement = document.body.querySelector('slot-event--my-container');
-
-      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
-    })
-  );
-
   await driver.findElement(By.css('button')).click();
 
   await expect(

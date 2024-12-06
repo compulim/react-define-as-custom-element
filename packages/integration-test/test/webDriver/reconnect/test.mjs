@@ -14,14 +14,6 @@ afterEach(() => driver?.quit());
 it('should mount as custom elements and observe attribute change', async () => {
   await driver.get('http://web/reconnect/');
 
-  await driver.wait(() =>
-    driver.executeScript(() => {
-      const customElement = document.body.querySelector('reconnect--intercepted-header');
-
-      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
-    })
-  );
-
   // THEN: Should appear in DOM.
   await expect(driver.executeScript(() => document.querySelector('main')?.outerHTML)).resolves.toEqual(
     '<main><reconnect--intercepted-header value="Hello, World!"><h1>Hello, World!</h1></reconnect--intercepted-header></main>'

@@ -19,14 +19,6 @@ it('should throw when mounting Portal twice', async () => {
     done => Promise.resolve(window['__run__']?.()).then(done)
   );
 
-  await driver.wait(() =>
-    driver.executeScript(() => {
-      const customElement = document.body.querySelector('main');
-
-      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
-    })
-  );
-
   await expect(driver.executeScript(() => document.querySelector('main')?.childElementCount)).resolves.toBe(0);
 
   await expect(driver.manage().logs().get('browser')).resolves.toEqual(

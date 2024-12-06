@@ -19,14 +19,6 @@ it('should work with useContext with changing values', async () => {
     done => Promise.resolve(window.__run_1__?.()).then(done)
   );
 
-  await driver.wait(() =>
-    driver.executeScript(() => {
-      const customElement = document.body.querySelector('main');
-
-      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
-    })
-  );
-
   // TODO: Should use waitUntil.
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML())).resolves.toBe(
     `
