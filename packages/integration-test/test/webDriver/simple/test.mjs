@@ -14,6 +14,14 @@ afterEach(() => driver?.quit());
 it('should mount as custom elements and observe attribute change', async () => {
   await driver.get('http://web/simple/');
 
+  await driver.wait(() =>
+    driver.executeScript(() => {
+      const customElement = document.body.querySelector('simple--my-input');
+
+      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
+    })
+  );
+
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
     '<simple--my-input value="Hello, World!"><input type="text" value="Hello, World!"></simple--my-input>'
   );

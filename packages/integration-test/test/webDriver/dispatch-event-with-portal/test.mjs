@@ -19,6 +19,14 @@ it('should have dispatchEvent prop', async () => {
     done => Promise.resolve(window['__run__']?.()).then(done)
   );
 
+  await driver.wait(() =>
+    driver.executeScript(() => {
+      const customElement = document.body.querySelector('main');
+
+      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
+    })
+  );
+
   await driver.findElement(By.css('button')).click();
 
   // @ts-ignore

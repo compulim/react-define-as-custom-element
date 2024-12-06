@@ -14,6 +14,14 @@ afterEach(() => driver?.quit());
 it('should render once', async () => {
   await driver.get('http://web/batch-attribute-change/');
 
+  await driver.wait(() =>
+    driver.executeScript(() => {
+      const customElement = document.body.querySelector('batch-attribute-change--my-input');
+
+      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
+    })
+  );
+
   // THEN: Should appear in DOM.
   await expect(driver.executeScript(() => document.body.outerHTML)).resolves.toBe(
     '<body>\n    <batch-attribute-change--my-input label="First name" value="John"><label><div>First name</div><input type="text" value="John"></label></batch-attribute-change--my-input>\n  \n\n</body>'

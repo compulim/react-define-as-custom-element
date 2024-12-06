@@ -14,6 +14,14 @@ afterEach(() => driver?.quit());
 it('should not render twice', async () => {
   await driver.get('http://web/wasted-rendering/');
 
+  await driver.wait(() =>
+    driver.executeScript(() => {
+      const customElement = document.body.querySelector('wasted-rendering--header');
+
+      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
+    })
+  );
+
   await driver.wait(
     () =>
       driver.executeScript(

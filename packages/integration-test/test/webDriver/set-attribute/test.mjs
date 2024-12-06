@@ -14,6 +14,14 @@ afterEach(() => driver?.quit());
 it('should mount as custom elements and observe attribute change', async () => {
   await driver.get('http://web/set-attribute/');
 
+  await driver.wait(() =>
+    driver.executeScript(() => {
+      const customElement = document.body.querySelector('set-attribute--my-badge');
+
+      return customElement && '_reactRootContainer' in (customElement.shadowRoot || customElement);
+    })
+  );
+
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
     '<set-attribute--my-badge class="badge" data-value="Hello, World!" something="123"><span>badge 123 Hello, World!</span></set-attribute--my-badge>'
   );
