@@ -1,8 +1,8 @@
 import mathRandom from 'math-random';
 import React, { Fragment, memo, useEffect, useState, type ComponentType } from 'react';
 import { createPortal } from 'react-dom';
-import createReactCustomElement from './private/createReactCustomElement.ts';
 import CustomElementProvider from './hooks/CustomElementProvider.tsx';
+import createReactCustomElement from './private/createReactCustomElement.ts';
 import signalingState from './signalingState.ts';
 import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
@@ -14,7 +14,7 @@ export default function defineAsCustomElement<T extends string>(
   tagName: string,
   attributesMap: AttributesMap<T>,
   init?: DefineAsCustomElementInit | undefined
-): { Portal: ComponentType } {
+): { Portal: ComponentType<{ children?: never }> } {
   const { getState, next, patchState } = signalingState<InstanceMap<T>>(new Map());
   const observedAttributes = Object.freeze(Object.keys(attributesMap));
 
