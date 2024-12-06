@@ -14,7 +14,7 @@ export default function defineAsCustomElement<T extends string>(
   tagName: string,
   attributesMap: AttributesMap<T>,
   init?: DefineAsCustomElementInit | undefined
-): { Portal: ComponentType<{ children: never }> } {
+): { Portal: ComponentType<{ children?: never }> } {
   const { getState, next, patchState } = signalingState<InstanceMap<T>>(new Map());
   const observedAttributes = Object.freeze(Object.keys(attributesMap));
 
