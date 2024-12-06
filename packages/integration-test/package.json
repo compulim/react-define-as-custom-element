@@ -34,6 +34,6 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "react-define-as-custom-element": "file:../react-define-as-custom-element/react-define-as-custom-element-0.0.0-0.tgz"
+    "react-define-as-custom-element": "0.0.0-0"
   }
 }
