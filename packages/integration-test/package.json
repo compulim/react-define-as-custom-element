@@ -34,6 +34,6 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "react-define-as-custom-element": "0.0.0-0"
+    "react-define-as-custom-element": "^0.0.0-0"
   }
 }
