@@ -25,13 +25,15 @@ export default function defineAsCustomElement<T extends string>(
       constructor() {
         super(
           attributesMap,
+          init?.methodName,
           init?.shadowRoot,
-          (props, element) =>
+          (props, element, setMethodCallback) =>
             render(
               <CustomElementProvider<typeof props>
                 componentType={componentType}
-                props={props}
                 customElement={element}
+                props={props}
+                setMethodCallback={setMethodCallback}
               />,
               element
             ),

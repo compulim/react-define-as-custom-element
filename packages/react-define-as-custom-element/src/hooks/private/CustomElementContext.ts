@@ -1,7 +1,8 @@
-import { createContext } from 'react';
+import { createContext, type MutableRefObject } from 'react';
 
 type CustomElementContextType = {
   customElementState: readonly [HTMLElement | ShadowRoot];
+  methodCallbackRef: MutableRefObject<((...args: any[]) => any) | null>;
 };
 
 const CustomElementContext = createContext<CustomElementContextType>(

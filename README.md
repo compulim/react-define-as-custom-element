@@ -137,6 +137,44 @@ const MyInput = ({ value }: { value?: string | undefined }) => {
 };
 ```
 
+### Defining a custom method
+
+A custom method can be added to the custom element. When the method is called, it will trigger the callback function registered with the `useMethodCallback()` hook.
+
+```tsx
+import { defineAsCustomElement, useMethodCallback } from 'react-define-as-custom-element';
+
+const MyCalculator = () => {
+  const [left, setLeft] = useState<number>(0);
+  const [right, setRight] = useState<number>(0);
+  const [sum, setSum] = useState<number>(left + right);
+
+  useMethodCallback<(left: number, right: number) => number>((left, right) => {
+    setLeft(left);
+    setRight(right);
+    setSum(left + right);
+
+    return left + right;
+  });
+
+  return (
+    <div>
+      {left} + {right} = {sum}
+    </div>
+  );
+};
+
+defineAsCustomElement('my-calculator', {}, { methodName: 'sum' });
+```
+
+After defining the custom element with `methodName`, a new `sum()` function will be added to the custom element.
+
+```tsx
+document.getElementsByTagName('my-calculator')[0].sum(1, 2); // Returns 3.
+```
+
+For every instance of the component, it should only call `useMethodCallback()` hook once. If more than one callback function is registered, the behavior will be indeterministic.
+
 ## Behaviors
 
 ### What do I need to know to start wrapping my component as custom element?
@@ -186,6 +224,7 @@ To support React version 16.8 to 18, we are using `ReactDOM.render`, which is av
 ## Roadmap
 
 - API to support `formAssociated`, HTML Constraint Validation and Accessibility Object Model
+- API to support [`CustomStateSet`](https://developer.mozilla.org/en-US/docs/Web/API/CustomStateSet)
 
 ## Contributions
 

@@ -116,6 +116,7 @@
   },
   "dependencies": {
     "math-random": "^2.0.1",
-    "type-fest": "^4.27.0"
+    "type-fest": "^4.27.0",
+    "use-ref-from": "^0.1.0"
   }
 }

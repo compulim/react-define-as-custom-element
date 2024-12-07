@@ -6,7 +6,9 @@ import createReactCustomElement from './private/createReactCustomElement.ts';
 import signalingState from './signalingState.ts';
 import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
-type InstanceMapEntry<T extends object> = Readonly<[HTMLElement | ShadowRoot, Readonly<T>]>;
+type InstanceMapEntry<T extends object> = Readonly<
+  [HTMLElement | ShadowRoot, Readonly<T>, (fn: (...args: any[]) => any) => void]
+>;
 type InstanceMap<T extends string> = ReadonlyMap<string, InstanceMapEntry<AttributeAsProps<T>>>;
 
 export default function defineAsCustomElement<T extends string>(
@@ -28,9 +30,12 @@ export default function defineAsCustomElement<T extends string>(
       constructor() {
         super(
           attributesMap,
+          init?.methodName,
           init?.shadowRoot,
-          (props, element) =>
-            patchState(map => Object.freeze(new Map(map).set(this.#key, Object.freeze([element, props])))),
+          (props, element, setMethodCallback) =>
+            patchState(map =>
+              Object.freeze(new Map(map).set(this.#key, Object.freeze([element, props, setMethodCallback])))
+            ),
           () =>
             patchState(map => {
               const nextMap = new Map(map);
@@ -82,9 +87,14 @@ export default function defineAsCustomElement<T extends string>(
         {Array.from(
           instances
             .entries()
-            .map(([key, [element, props]]) =>
+            .map(([key, [element, props, setMethodCallback]]) =>
               createPortal(
-                <CustomElementProvider componentType={componentType} customElement={element} props={props} />,
+                <CustomElementProvider
+                  componentType={componentType}
+                  customElement={element}
+                  props={props}
+                  setMethodCallback={setMethodCallback}
+                />,
                 element,
                 key
               )
