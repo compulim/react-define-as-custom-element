@@ -145,33 +145,21 @@ There are some key differences between React component and a custom element:
 
 - All props must be an optional string
   - Attributes are optional and must be of type string
-- When 2+ attributes are changed at the same time, its underlying React component will be re-rendered 2+ times
-  - For every attribute change, browser will call `attributeChangedCallback()` once
-  - Eventual consistency: there will be a brief moment that one prop is on a new value, while the other prop is on an old value
 - When using shadow DOM, the shadowed element (denoted by the [`slot` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot)) are virtually relocated (a.k.a. shadowed) to the [`<slot>` placeholder element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)
   - The parent of the shadow DOM is the custom element, and not the `<slot>` element
   - Events propagated from the shadow DOM will not available to the `<slot>` element or its ancestor up to the custom element
+- When updating multiple attributes/props synchronously
+  - For Web Component, browser will call `attributeChangeCallback` multiple times, component must support eventual consistency
+  - For React component, all props changes will be updated in a single render call
+  - `defineAsCustomElement()` always batch attribute changes into a single React render call using [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask)
 
 ### Given major differences between React and custom element, why should I still wrap it?
 
-Consider these factors: cost of writing a new UI component, making them parity, and maintaining both of them.
+Consider these factors: cost of writing a new UI component, making them on parity of each other, and maintaining both of them.
 
 ### Some of the props need to be a number instead of string
 
 Writes an adapter component that parses the string into a number.
-
-### How to batch attribute changes?
-
-The best practice is to design props with separation of responsibilities and handle eventual consistency. Only use the method described below as a last resort.
-
-Use the `withPropsDebounce()` HOC helper to debounce props changes to next additional render loop. It is strongly recommended to use a memoized component to eliminate wasted rendering.
-
-```ts
-import { memo } from 'react';
-import { defineAsCustomElement, withPropsDebounce } from 'react-define-as-custom-element';
-
-defineAsCustomElement(withPropsDebounce(memo(MyInput)), 'my-input', { 'data-value': 'value' });
-```
 
 ### Does it supports React Native?
 

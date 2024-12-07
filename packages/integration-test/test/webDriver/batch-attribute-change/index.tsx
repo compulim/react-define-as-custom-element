@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { defineAsCustomElement, withPropsDebounce } from 'react-define-as-custom-element';
+import { defineAsCustomElement } from 'react-define-as-custom-element';
 
 declare global {
   interface Window {
@@ -12,8 +12,6 @@ window.__renderProps__ = [];
 const MyInput = memo(({ label, value }: { label?: string | undefined; value?: string | undefined }) => {
   window.__renderProps__.push({ label, value });
 
-  console.log({ label, value });
-
   return (
     <label>
       <div>{label}</div>
@@ -22,7 +20,7 @@ const MyInput = memo(({ label, value }: { label?: string | undefined; value?: st
   );
 });
 
-defineAsCustomElement(withPropsDebounce(MyInput), 'batch-attribute-change--my-input', {
+defineAsCustomElement(MyInput, 'batch-attribute-change--my-input', {
   label: 'label',
   value: 'value'
 });
