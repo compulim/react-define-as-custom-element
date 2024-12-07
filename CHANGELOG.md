@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Attribute changes will be batched via [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask), by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/compulim/react-define-as-custom-element/pull/XXX)
+- Attribute changes will be batched via [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask), by [@compulim](https://github.com/compulim), in PR [#8](https://github.com/compulim/react-define-as-custom-element/pull/8)
 
 ### Removed
 
-- 💥 Removed `withPropsDebounce`, by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/compulim/react-define-as-custom-element/pull/XXX)
+- 💥 Removed `withPropsDebounce`, by [@compulim](https://github.com/compulim), in PR [#8](https://github.com/compulim/react-define-as-custom-element/pull/8)
 
 ## [0.1.0] - 2024-12-06
 
