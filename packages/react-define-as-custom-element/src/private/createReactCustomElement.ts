@@ -32,6 +32,7 @@ export default function createReactCustomElement<T extends string>(
     #mountCallback: MountCallback<AttributeAsProps<T>>;
     #propsMap: Map<T, string | undefined> = new Map();
     #unmountCallback: UnmountCallback | undefined;
+    #version: number = 0;
 
     [Symbol.dispose]() {
       this.#unmountCallback?.(this.#element);
@@ -44,9 +45,15 @@ export default function createReactCustomElement<T extends string>(
 
     #refresh() {
       if (this.#connected) {
-        const element = this.#element;
+        const version = ++this.#version;
 
-        element && this.#mountCallback(this.#getProps(), element);
+        queueMicrotask(() => {
+          if (version === this.#version) {
+            const element = this.#element;
+
+            element && this.#mountCallback(this.#getProps(), element);
+          }
+        });
       }
     }
 
