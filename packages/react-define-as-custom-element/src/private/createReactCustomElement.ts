@@ -3,7 +3,8 @@ import { type AttributeAsProps, type AttributesMap } from '../types.ts';
 type MountCallback<P extends object> = (
   props: P,
   element: HTMLElement | ShadowRoot,
-  setMethodCallback: (fn: (...args: any[]) => any) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setMethodCallback: (fn: (name: string, ...args: any[]) => any) => void
 ) => void;
 type UnmountCallback = (element: HTMLElement | ShadowRoot) => void;
 
@@ -15,7 +16,7 @@ export default function createReactCustomElement<T extends string>(
   return class ReactCustomElement extends (customElementConstructor || HTMLElement) {
     constructor(
       attributesMap: AttributesMap<T>,
-      methodName: string | undefined,
+      methodNames: string[] | undefined,
       shadowRootInit: ShadowRootInit | undefined,
       mountCallback: MountCallback<AttributeAsProps<T>>,
       unmountCallback: UnmountCallback
@@ -28,13 +29,16 @@ export default function createReactCustomElement<T extends string>(
 
       this.#element = shadowRootInit ? this.attachShadow(shadowRootInit) : this;
 
-      if (methodName) {
+      for (const methodName of methodNames || []) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (this as any)[methodName] = (...args: any[]) => {
-          if (!this.#methodCallback) {
-            throw new Error('useMethodCallback() must be called before this method can be called.');
+          const callback = this.#methodCallback;
+
+          if (!callback) {
+            throw new Error(`useMethodCallback('${methodName}') must be called before this method can be called.`);
           }
 
-          return this.#methodCallback(...args);
+          return callback(methodName, ...args);
         };
       }
 
@@ -44,7 +48,8 @@ export default function createReactCustomElement<T extends string>(
     #attributesMap: AttributesMap<T>;
     #connected: boolean = false;
     #element: ReactCustomElement | ShadowRoot;
-    #methodCallback: ((...args: any) => any) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    #methodCallback: ((name: string, ...args: any) => any) | undefined;
     #mountCallback: MountCallback<AttributeAsProps<T>>;
     #propsMap: Map<T, string | undefined> = new Map();
     #setMethodCallbackBound = this.#setMethodCallback.bind(this);
@@ -74,7 +79,8 @@ export default function createReactCustomElement<T extends string>(
       }
     }
 
-    #setMethodCallback(fn: (...args: any) => any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    #setMethodCallback(fn: ((name: string, ...args: any) => any) | undefined) {
       this.#methodCallback = fn;
     }
 

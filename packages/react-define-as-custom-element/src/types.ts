@@ -11,7 +11,7 @@ export type DefineAsCustomElementInit = Readonly<{
         extends: string;
       }
     | undefined;
-  methodName?: string | undefined;
+  methodNames?: string[] | undefined;
   shadowRoot?: ShadowRootInit | undefined;
 }>;
 

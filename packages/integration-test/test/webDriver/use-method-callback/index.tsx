@@ -5,8 +5,13 @@ const MyLabel = () => {
   const [label, setLabel] = useState<string>('');
   const [value, setValue] = useState<string>('');
 
-  useMethodCallback<(props: { label: string; value: string }) => void>(({ label, value }) => {
+  useMethodCallback<(label: string) => void>('setLabel', label => {
     setLabel(label);
+
+    return `${label}\n${value}`;
+  });
+
+  useMethodCallback<(value: string) => void>('setValue', value => {
     setValue(value);
 
     return `${label}\n${value}`;
@@ -20,4 +25,4 @@ const MyLabel = () => {
   );
 };
 
-defineAsCustomElement(MyLabel, 'use-method-callback--my-label', {}, { methodName: 'setProps' });
+defineAsCustomElement(MyLabel, 'use-method-callback--my-label', {}, { methodNames: ['setLabel', 'setValue'] });

@@ -23,14 +23,45 @@ it('should work', async () => {
 
   await expect(
     driver.executeScript(() => {
-      /** @type {(Element & { setProps: (props: { label: string; value: string; }) => void }) | null} */
+      /** @type {(Element & { setLabel: (label: string) => string }) | null} */
       const element = document?.querySelector('use-method-callback--my-label');
 
-      return element && element.setProps({ label: 'Name', value: 'John Doe' });
+      return element && element.setLabel('First name');
     })
-  ).resolves.toBe('Name\nJohn Doe');
+  ).resolves.toBe('First name\n');
+
+  await expect(
+    driver.executeScript(() => {
+      /** @type {(Element & { setValue: (value: string) => string }) | null} */
+      const element = document?.querySelector('use-method-callback--my-label');
+
+      return element && element.setValue('John');
+    })
+  ).resolves.toBe('First name\nJohn');
 
   await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
-    '<main></main>\n    <use-method-callback--my-label><dl><dt>Name</dt><dd>John Doe</dd></dl></use-method-callback--my-label>'
+    '<main></main>\n    <use-method-callback--my-label><dl><dt>First name</dt><dd>John</dd></dl></use-method-callback--my-label>'
+  );
+
+  await expect(
+    driver.executeScript(() => {
+      /** @type {(Element & { setLabel: (label: string) => string }) | null} */
+      const element = document?.querySelector('use-method-callback--my-label');
+
+      return element && element.setLabel('Last name');
+    })
+  ).resolves.toBe('Last name\nJohn');
+
+  await expect(
+    driver.executeScript(() => {
+      /** @type {(Element & { setValue: (value: string) => string }) | null} */
+      const element = document?.querySelector('use-method-callback--my-label');
+
+      return element && element.setValue('Doe');
+    })
+  ).resolves.toBe('Last name\nDoe');
+
+  await expect(driver.executeScript(() => document?.querySelector('body')?.getHTML().trim())).resolves.toBe(
+    '<main></main>\n    <use-method-callback--my-label><dl><dt>Last name</dt><dd>Doe</dd></dl></use-method-callback--my-label>'
   );
 });

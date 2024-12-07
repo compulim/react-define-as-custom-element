@@ -20,10 +20,19 @@ it('should work', async () => {
 
   await expect(
     driver.executeScript(() => {
-      /** @type {(Element & { setProps: (props: { label: string; value: string; }) => void }) | null} */
+      /** @type {(Element & { setLabel: (label: string) => string }) | null} */
       const element = document?.querySelector('use-method-callback--my-label');
 
-      return element && element.setProps({ label: 'First name', value: 'John' });
+      return element && element.setLabel('First name');
+    })
+  ).resolves.toBe('First name\n');
+
+  await expect(
+    driver.executeScript(() => {
+      /** @type {(Element & { setValue: (value: string) => string }) | null} */
+      const element = document?.querySelector('use-method-callback--my-label');
+
+      return element && element.setValue('John');
     })
   ).resolves.toBe('First name\nJohn');
 
@@ -33,10 +42,19 @@ it('should work', async () => {
 
   await expect(
     driver.executeScript(() => {
-      /** @type {(Element & { setProps: (props: { label: string; value: string; }) => void }) | null} */
+      /** @type {(Element & { setLabel: (label: string) => string }) | null} */
       const element = document?.querySelector('use-method-callback--my-label');
 
-      return element && element.setProps({ label: 'Last name', value: 'Doe' });
+      return element && element.setLabel('Last name');
+    })
+  ).resolves.toBe('Last name\nJohn');
+
+  await expect(
+    driver.executeScript(() => {
+      /** @type {(Element & { setValue: (value: string) => string }) | null} */
+      const element = document?.querySelector('use-method-callback--my-label');
+
+      return element && element.setValue('Doe');
     })
   ).resolves.toBe('Last name\nDoe');
 

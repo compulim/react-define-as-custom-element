@@ -6,8 +6,13 @@ const MyLabel = () => {
   const [label, setLabel] = useState<string>('');
   const [value, setValue] = useState<string>('');
 
-  useMethodCallback<(props: { label: string; value: string }) => void>(({ label, value }) => {
+  useMethodCallback<(label: string) => void>('setLabel', label => {
     setLabel(label);
+
+    return `${label}\n${value}`;
+  });
+
+  useMethodCallback<(value: string) => void>('setValue', value => {
     setValue(value);
 
     return `${label}\n${value}`;
@@ -21,7 +26,12 @@ const MyLabel = () => {
   );
 };
 
-const { Portal } = defineAsCustomElementWithPortal(MyLabel, 'use-method-callback--my-label', {}, { methodName: 'setProps' });
+const { Portal } = defineAsCustomElementWithPortal(
+  MyLabel,
+  'use-method-callback--my-label',
+  {},
+  { methodNames: ['setLabel', 'setValue'] }
+);
 
 window.__run__ = () => {
   const mainElement = document.querySelector('main') || undefined;
@@ -29,4 +39,5 @@ window.__run__ = () => {
   return mainElement && new Promise<void>(resolve => render(<Portal />, mainElement, resolve));
 };
 
-navigator.webdriver || window.__run__();
+// @ts-expect-error Ignore __run__
+navigator.webdriver || window.addEventListener('load', () => window.__run__());

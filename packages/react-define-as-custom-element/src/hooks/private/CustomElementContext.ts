@@ -2,7 +2,8 @@ import { createContext, type MutableRefObject } from 'react';
 
 type CustomElementContextType = {
   customElementState: readonly [HTMLElement | ShadowRoot];
-  methodCallbackRef: MutableRefObject<((...args: any[]) => any) | null>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  methodCallbackRef: MutableRefObject<{ [name: string]: ((...args: any[]) => any) | null | undefined }>;
 };
 
 const CustomElementContext = createContext<CustomElementContextType>(

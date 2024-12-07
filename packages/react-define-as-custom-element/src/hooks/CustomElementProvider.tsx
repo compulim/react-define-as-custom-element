@@ -5,7 +5,8 @@ type Props<T extends Record<string, string | undefined>> = {
   componentType: ComponentType<T>;
   customElement: HTMLElement | ShadowRoot;
   props: T;
-  setMethodCallback: (fn: (...args: any[]) => any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setMethodCallback: (fn: (name: string, ...args: any[]) => any) => void;
 };
 
 const CustomElementProvider = <T extends Record<string, string | undefined>>({
@@ -14,9 +15,8 @@ const CustomElementProvider = <T extends Record<string, string | undefined>>({
   props,
   setMethodCallback
 }: Props<T>) => {
-  console.log('CustomElementProvider');
-
-  const methodCallbackRef = useRef<(...args: any[]) => any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const methodCallbackRef = useRef<{ [name: string]: (...args: any[]) => any }>({});
 
   const context = useMemo<CustomElementContextType>(
     () => ({
@@ -26,15 +26,19 @@ const CustomElementProvider = <T extends Record<string, string | undefined>>({
     [customElement, methodCallbackRef]
   );
 
-  useMemo(() => {
-    setMethodCallback((...args) => {
-      const { current } = methodCallbackRef;
+  console.log({ setMethodCallback });
 
-      if (!current) {
-        throw new Error('A callback function must be registered with useMethodCallback().');
+  useMemo(() => {
+    setMethodCallback((name, ...args) => {
+      const {
+        current: { [name]: callback }
+      } = methodCallbackRef;
+
+      if (!callback) {
+        throw new Error(`A callback function must be registered with useMethodCallback('${name}').`);
       }
 
-      return current(...args);
+      return callback(...args);
     });
   }, [methodCallbackRef, setMethodCallback]);
 

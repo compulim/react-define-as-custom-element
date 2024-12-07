@@ -7,7 +7,8 @@ import signalingState from './signalingState.ts';
 import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
 type InstanceMapEntry<T extends object> = Readonly<
-  [HTMLElement | ShadowRoot, Readonly<T>, (fn: (...args: any[]) => any) => void]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [HTMLElement | ShadowRoot, Readonly<T>, (fn: (name: string, ...args: any[]) => any) => void]
 >;
 type InstanceMap<T extends string> = ReadonlyMap<string, InstanceMapEntry<AttributeAsProps<T>>>;
 
@@ -30,7 +31,7 @@ export default function defineAsCustomElement<T extends string>(
       constructor() {
         super(
           attributesMap,
-          init?.methodName,
+          init?.methodNames,
           init?.shadowRoot,
           (props, element, setMethodCallback) =>
             patchState(map =>
