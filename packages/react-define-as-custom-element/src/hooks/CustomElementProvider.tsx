@@ -26,8 +26,6 @@ const CustomElementProvider = <T extends Record<string, string | undefined>>({
     [customElement, methodCallbackRef]
   );
 
-  console.log({ setMethodCallback });
-
   useMemo(() => {
     setMethodCallback((name, ...args) => {
       const {
