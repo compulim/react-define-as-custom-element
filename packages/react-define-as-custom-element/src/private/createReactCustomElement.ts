@@ -66,10 +66,12 @@ export default function createReactCustomElement<T extends string>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     #setMethodCallback(name: string, fn: ((...args: any) => any) | undefined) {
       if (fn) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (this as any)[name] = (...args: any[]) => {
           return fn(...args);
         };
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         delete (this as any)[name];
       }
     }
