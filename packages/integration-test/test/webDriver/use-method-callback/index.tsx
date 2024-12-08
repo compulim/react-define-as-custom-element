@@ -25,4 +25,4 @@ const MyLabel = () => {
   );
 };
 
-defineAsCustomElement(MyLabel, 'use-method-callback--my-label', {}, { methodNames: ['setLabel', 'setValue'] });
+defineAsCustomElement(MyLabel, 'use-method-callback--my-label', {});

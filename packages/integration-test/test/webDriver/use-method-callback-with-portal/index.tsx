@@ -26,12 +26,7 @@ const MyLabel = () => {
   );
 };
 
-const { Portal } = defineAsCustomElementWithPortal(
-  MyLabel,
-  'use-method-callback--my-label',
-  {},
-  { methodNames: ['setLabel', 'setValue'] }
-);
+const { Portal } = defineAsCustomElementWithPortal(MyLabel, 'use-method-callback--my-label', {});
 
 window.__run__ = () => {
   const mainElement = document.querySelector('main') || undefined;

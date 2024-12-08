@@ -8,7 +8,7 @@ import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementIn
 
 type InstanceMapEntry<T extends object> = Readonly<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [HTMLElement | ShadowRoot, Readonly<T>, (fn: (name: string, ...args: any[]) => any) => void]
+  [HTMLElement | ShadowRoot, Readonly<T>, (name: string, fn: ((...args: any[]) => any) | undefined) => void]
 >;
 type InstanceMap<T extends string> = ReadonlyMap<string, InstanceMapEntry<AttributeAsProps<T>>>;
 
@@ -31,7 +31,6 @@ export default function defineAsCustomElement<T extends string>(
       constructor() {
         super(
           attributesMap,
-          init?.methodNames,
           init?.shadowRoot,
           (props, element, setMethodCallback) =>
             patchState(map =>

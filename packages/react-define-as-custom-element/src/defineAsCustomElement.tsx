@@ -25,7 +25,6 @@ export default function defineAsCustomElement<T extends string>(
       constructor() {
         super(
           attributesMap,
-          init?.methodNames,
           init?.shadowRoot,
           (props, element, setMethodCallback) =>
             render(
