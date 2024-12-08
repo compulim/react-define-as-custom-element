@@ -139,7 +139,7 @@ const MyInput = ({ value }: { value?: string | undefined }) => {
 
 ### Defining custom methods
 
-> Custom method is not recommended for passing non-string data to the underlying React component. Attribute supports server-side rendering and is the best practice for passing data. In most cases, attributes with serialization should be used to pass non-string data.
+> Custom method is not recommended for passing non-string data to the underlying React component. Attribute supports server-side rendering and is the best practice for passing data. In most cases, attributes should be used with serialization to pass non-string data.
 
 Custom methods can be added to the custom element via the `useMethodCallback()` hook.
 
