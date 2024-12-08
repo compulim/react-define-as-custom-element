@@ -139,7 +139,7 @@ const MyInput = ({ value }: { value?: string | undefined }) => {
 
 ### Defining custom methods
 
-Custom methods can be added to the custom element. When the method is called, it will trigger the callback function registered with the `useMethodCallback()` hook.
+Custom methods can be added to the custom element via the `useMethodCallback()` hook.
 
 ```tsx
 import { defineAsCustomElement, useMethodCallback } from 'react-define-as-custom-element';
@@ -149,7 +149,7 @@ const MyCalculator = () => {
   const [right, setRight] = useState<number>(0);
   const [sum, setSum] = useState<number>(left + right);
 
-  useMethodCallback<(left: number, right: number) => number>('sum', (left, right) => {
+  useMethodCallback('sum', (left: number, right: number): number => {
     setLeft(left);
     setRight(right);
     setSum(left + right);
@@ -164,16 +164,16 @@ const MyCalculator = () => {
   );
 };
 
-defineAsCustomElement('my-calculator', {}, { methodNames: ['sum'] });
+defineAsCustomElement('my-calculator', MyCalculator, {});
 ```
 
-After defining the custom element, a new `sum()` function will be added to the custom element.
+After calling the `useMethodCallback('sum')` hook, a `sum()` function will be added to the custom element.
 
 ```tsx
 document.getElementsByTagName('my-calculator')[0].sum(1, 2); // Returns 3.
 ```
 
-For every instance of the component, it should only call `useMethodCallback()` hook once for every registered method. If more than one callback function is registered, the behavior will be indeterministic.
+`useMethodCallback()` hook should only called once for every method. If more than one method is registered with the same name, its behavior will be indeterministic.
 
 ## Behaviors
 
