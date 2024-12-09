@@ -175,7 +175,7 @@ After calling the `useMethodCallback('sum')` hook, a `sum()` function will be ad
 document.getElementsByTagName('my-calculator')[0].sum(1, 2); // Returns 3.
 ```
 
-`useMethodCallback()` hook should only called once for every method. If more than one method is registered with the same name, its behavior will be indeterministic.
+Only one callback function can be registered per method name. The hook will throw if called with the method name that is already registered with another callback function.
 
 ## Behaviors
 
@@ -222,6 +222,10 @@ declare global {
 ### Why are you still using the deprecated `ReactDOM.render` instead of `createRoot()`?
 
 To support React version 16.8 to 18, we are using `ReactDOM.render`, which is available through out the supported versions.
+
+### Can I add property to the custom element?
+
+After defined the custom element, call `customElements.get()` to retrieve the custom element constructor and modify as needed.
 
 ## Roadmap
 

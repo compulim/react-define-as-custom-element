@@ -8,7 +8,11 @@ import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementIn
 
 type InstanceMapEntry<T extends object> = Readonly<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [HTMLElement | ShadowRoot, Readonly<T>, (name: string, fn: ((...args: any[]) => any) | undefined) => void]
+  [
+    HTMLElement | ShadowRoot,
+    Readonly<T>,
+    (name: string, nonce: number, fn: ((...args: any[]) => any) | undefined) => void
+  ]
 >;
 type InstanceMap<T extends string> = ReadonlyMap<string, InstanceMapEntry<AttributeAsProps<T>>>;
 

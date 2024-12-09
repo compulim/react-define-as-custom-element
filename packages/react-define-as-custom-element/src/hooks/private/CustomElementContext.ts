@@ -3,7 +3,7 @@ import { createContext } from 'react';
 type CustomElementContextType = {
   customElementState: readonly [HTMLElement | ShadowRoot];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setMethodCallback: (name: string, fn: ((...args: any[]) => any) | undefined) => void;
+  setMethodCallback: (name: string, nonce: number, fn: ((...args: any[]) => any) | undefined) => void;
 };
 
 const CustomElementContext = createContext<CustomElementContextType>(

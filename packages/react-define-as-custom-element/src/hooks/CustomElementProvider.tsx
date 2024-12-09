@@ -6,7 +6,7 @@ type Props<T extends Record<string, string | undefined>> = {
   customElement: HTMLElement | ShadowRoot;
   props: T;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setMethodCallback: (name: string, fn: ((...args: any[]) => any) | undefined) => void;
+  setMethodCallback: (name: string, nonce: number, fn: ((...args: any[]) => any) | undefined) => void;
 };
 
 const CustomElementProvider = <T extends Record<string, string | undefined>>({
