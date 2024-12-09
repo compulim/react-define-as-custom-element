@@ -14,7 +14,7 @@ By writing the UI component using React and delivering it as a custom element, w
 
 ### Basic
 
-Assumes the following React component.
+Assume the following React component.
 
 ```tsx
 type MyInputProps = { value?: string | undefined };
