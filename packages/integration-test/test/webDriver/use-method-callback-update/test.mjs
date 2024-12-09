@@ -19,5 +19,8 @@ it('should work', async () => {
 
   driver.executeScript(() => document.body.firstElementChild?.setAttribute('operator', 'multiply'));
 
-  await expect(driver.executeScript(() => document.body.textContent?.trim())).resolves.toBe('1 * 2 = 2');
+  await driver.wait(() => driver.executeScript(() => document.body.textContent?.trim() === '1 * 2 = 2'));
+
+  // @ts-expect-error
+  await expect(driver.executeScript(() => document.body.firstElementChild?.compute(1, 2))).resolves.toBe(2);
 });

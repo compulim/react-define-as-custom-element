@@ -19,7 +19,7 @@ it('should work', async () => {
     expect.arrayContaining([
       expect.objectContaining({
         level: Level.SEVERE,
-        message: expect.stringContaining(`useMethodCallback('setValue') already registered to another function.`)
+        message: expect.stringContaining(`useMethodCallback('setValue') is already registered to another function.`)
       })
     ])
   );
