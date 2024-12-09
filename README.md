@@ -189,7 +189,7 @@ There are some key differences between React component and a custom element:
   - The parent of the slotted element is the custom element, not the `<slot>` element
   - Events propagated from the slotted element will not available to the `<slot>` element but only to the root of the custom element
 - When updating multiple attributes/props synchronously
-  - For custom elements, browser will call `attributeChangeCallback` multiple times, component must support eventual consistency
+  - For custom element, browser will call `HTMLElement.attributeChangeCallback()` multiple times, therefore, component must support eventual consistency
   - For React component, all props changes will be updated at once
   - `defineAsCustomElement()` always batch multiple synchronous attribute changes into a single React render call using [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask)
 - Custom elements must not be self-closing
