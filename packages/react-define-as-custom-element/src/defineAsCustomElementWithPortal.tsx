@@ -7,8 +7,12 @@ import signalingState from './signalingState.ts';
 import { type AttributeAsProps, type AttributesMap, type DefineAsCustomElementInit } from './types.ts';
 
 type InstanceMapEntry<T extends object> = Readonly<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [HTMLElement | ShadowRoot, Readonly<T>, (name: string, fn: ((...args: any[]) => any) | undefined) => void]
+  [
+    HTMLElement | ShadowRoot,
+    Readonly<T>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (name: string, nonce: number, fn: ((...args: any[]) => any) | undefined) => void
+  ]
 >;
 type InstanceMap<T extends string> = ReadonlyMap<string, InstanceMapEntry<AttributeAsProps<T>>>;
 

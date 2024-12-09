@@ -4,7 +4,7 @@ type MountCallback<P extends object> = (
   props: P,
   element: HTMLElement | ShadowRoot,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setMethodCallback: (name: string, fn: ((...args: any[]) => any) | undefined) => void
+  setMethodCallback: (name: string, nonce: number, fn: ((...args: any[]) => any) | undefined) => void
 ) => void;
 type UnmountCallback = (element: HTMLElement | ShadowRoot) => void;
 
@@ -34,6 +34,7 @@ export default function createReactCustomElement<T extends string>(
     #attributesMap: AttributesMap<T>;
     #connected: boolean = false;
     #element: ReactCustomElement | ShadowRoot;
+    #methodNonceMap: Map<string, number> = new Map();
     #mountCallback: MountCallback<AttributeAsProps<T>>;
     #propsMap: Map<T, string | undefined> = new Map();
     #setMethodCallbackBound = this.#setMethodCallback.bind(this);
@@ -64,7 +65,15 @@ export default function createReactCustomElement<T extends string>(
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    #setMethodCallback(name: string, fn: ((...args: any) => any) | undefined) {
+    #setMethodCallback(name: string, nonce: number, fn: ((...args: any) => any) | undefined) {
+      const existingNonce = this.#methodNonceMap.get(name);
+
+      if (typeof existingNonce === 'number' && existingNonce !== nonce) {
+        throw new Error(`useMethodCallback('${name}') is already registered to another function.`);
+      }
+
+      this.#methodNonceMap.set(name, nonce);
+
       if (fn) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (this as any)[name] = (...args: any[]) => {
