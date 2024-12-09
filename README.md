@@ -186,7 +186,7 @@ There are some key differences between React component and a custom element:
 - Attributes in custom elements are optional, must be of type string, and not limited to subset of strings
   - Therefore, props in React component must be optional strings too and expect caller to pass unsupported or invalid values
 - When using shadow DOM, the slotted element (denoted by the [`slot` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot)) is virtually relocated (a.k.a. shadowed) to the [`<slot>` placeholder element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)
-  - The parent of the slotted element is the custom element, not the `<slot>` element
+  - The parent of the slotted element is root of the custom element, not the `<slot>` element
   - Events propagated from the slotted element will not available to the `<slot>` element but only to the root of the custom element
 - When updating multiple attributes/props synchronously
   - For custom element, browser will call `HTMLElement.attributeChangeCallback()` multiple times, therefore, component must support eventual consistency
