@@ -175,7 +175,7 @@ After calling the `useMethodCallback('sum')` hook, a `sum()` function will be ad
 document.getElementsByTagName('my-calculator')[0].sum(1, 2); // Returns 3.
 ```
 
-Only one callback function can be registered per method name. The hook will throw if called with the method name that is already registered with another callback function.
+Only one callback function can be registered per method name. The hook will throw if called with the method names that are already registered with another callback function.
 
 ## Behaviors
 
