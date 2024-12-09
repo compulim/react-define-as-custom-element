@@ -6,7 +6,7 @@ Wraps a React component as custom element for packaging and delivering.
 
 [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) is a modern suite of technology for reusable web UI components. It reduces the burden of web UI component developers to package and deliver their UI components to their customers.
 
-However, custom elements are very barebone. It requires a lot of attention on UI state transitioning, which React excels at.
+However, custom element is primal. It requires a lot of attention on UI state transitioning, which React excels at.
 
 By writing the UI component using React and delivering it as a custom element, we are enjoying the best of both worlds.
 
@@ -72,7 +72,7 @@ defineAsCustomElement(
 );
 ```
 
-Then, in HTML, use the [`is` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to specify the subclass custom element:
+Then, in the HTML, use the [`is` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) to specify the subclass custom element:
 
 ```html
 <button is="my-button"></button>
@@ -114,11 +114,11 @@ Then, in the HTML:
 <my-input data-value="Hello, World!"></my-input>
 ```
 
-The underlying React component will be able to access the React context provided by `<MyAppContextProvider>` while rendering as a custom element. This is done by [`React.createPortal()` function](https://react.dev/reference/react-dom/createPortal).
+The underlying React component will be able to access the React context provided by `<MyReactContext.Provider>` while rendering as a custom element. This is done by the [`React.createPortal()` function](https://react.dev/reference/react-dom/createPortal).
 
 ### Retrieving the custom element instance
 
-Call the `useCustomElement` hook inside the converted React component to retrieve the instance of the custom element.
+Call the `useCustomElement` hook inside the converted React component to retrieve the instance of the custom element. This is useful when listening for events dispatched by slotted elements.
 
 The following example dispatch an event from the custom element:
 
@@ -139,7 +139,7 @@ const MyInput = ({ value }: { value?: string | undefined }) => {
 
 ### Defining custom methods
 
-> Custom method is not recommended for passing non-string data to the underlying React component. Attribute supports server-side rendering and is the best practice for passing data. In most cases, attributes should be used with serialization to pass non-string data.
+> Custom method is not an escape hatch for passing non-string data to the underlying React component. Attribute is the best practice for passing data. It [supports `<template>` and server-side rendering](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM#declaratively_with_html). In most cases, attributes should be used with serialization to pass non-string data.
 
 Custom methods can be added to the custom element via the `useMethodCallback()` hook.
 
@@ -183,15 +183,15 @@ Only one callback function can be registered per method name. The hook will thro
 
 There are some key differences between React component and a custom element:
 
-- All props must be an optional string
-  - Attributes are optional and must be of type string
+- Attributes in custom elements are optional, must be of type string, and not limited to subset of strings
+  - Therefore, props in React component must be optional strings too and expect caller to pass unsupported or invalid values
 - When using shadow DOM, the shadowed element (denoted by the [`slot` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot)) are virtually relocated (a.k.a. shadowed) to the [`<slot>` placeholder element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)
   - The parent of the shadow DOM is the custom element, and not the `<slot>` element
-  - Events propagated from the shadow DOM will not available to the `<slot>` element or its ancestor up to the custom element
+  - For example, events propagated from the shadow DOM will not available to the `<slot>` element but only to the root of the custom element
 - When updating multiple attributes/props synchronously
-  - For Web Component, browser will call `attributeChangeCallback` multiple times, component must support eventual consistency
-  - For React component, all props changes will be updated in a single render call
-  - `defineAsCustomElement()` always batch attribute changes into a single React render call using [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask)
+  - For custom elements, browser will call `attributeChangeCallback` multiple times, component must support eventual consistency
+  - For React component, all props changes will be updated at once
+  - `defineAsCustomElement()` always batch multiple synchronous attribute changes into a single React render call using [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask)
 
 ### Given major differences between React and custom element, why should I still wrap it?
 
