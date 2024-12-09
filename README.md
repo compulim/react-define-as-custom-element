@@ -118,7 +118,7 @@ The underlying React component will be able to access the React context provided
 
 ### Retrieving the custom element instance
 
-Call the `useCustomElement` hook inside the converted React component to retrieve the instance of the custom element. This is useful when listening for events dispatched by slotted elements.
+Call the `useCustomElement` hook inside the converted React component to retrieve the instance of the custom element. This is useful when listening to events dispatched by slotted elements.
 
 The following example dispatch an event from the custom element:
 
