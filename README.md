@@ -192,6 +192,8 @@ There are some key differences between React component and a custom element:
   - For custom elements, browser will call `attributeChangeCallback` multiple times, component must support eventual consistency
   - For React component, all props changes will be updated at once
   - `defineAsCustomElement()` always batch multiple synchronous attribute changes into a single React render call using [`queueMicrotask`](https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask)
+- Custom elements must not be self-closing
+- The name of custom elements must follow [requirements defined in the HTML Living Standard](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)
 
 ### Given major differences between React and custom element, why should I still wrap it?
 
