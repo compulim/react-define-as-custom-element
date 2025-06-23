@@ -1,6 +1,7 @@
 extends:
   - ./.eslintrc.custom.yml
 ignorePatterns:
+  - test/**/dist/**
   - test/webDriver/static/**
 overrides:
   - env:
