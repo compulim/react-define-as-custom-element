@@ -36,3 +36,4 @@ services:
     stop_grace_period: 0s
     volumes:
       - ./test/webDriver:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
