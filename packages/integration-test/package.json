@@ -49,25 +49,43 @@
       "react-dom": "18.0.0"
     }
   },
+  "pinDependencies": {
+    "@types/react": [
+      "^18",
+      "react@18"
+    ],
+    "@types/react-dom": [
+      "^18",
+      "react@18"
+    ],
+    "react": [
+      "^18",
+      "react@18"
+    ],
+    "react-dom": [
+      "^18",
+      "react@18"
+    ]
+  },
   "localPeerDependencies": {
     "react-define-as-custom-element": "^0.0.0-0"
   },
   "devDependencies": {
     "@testduet/wait-for": "^0.1.0",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/mocha": "^10.0.9",
-    "@types/node": "^20.17.6",
-    "@types/react": "^18.3.14",
-    "@types/react-dom": "^18.3.2",
-    "@types/selenium-webdriver": "^4.1.27",
-    "core-js-pure": "^3.38.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.0.3",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@types/selenium-webdriver": "^4.1.28",
+    "core-js-pure": "^3.43.0",
     "esbuild": "^0.25.5",
-    "expect": "^29.7.0",
-    "mocha": "^10.7.3",
+    "expect": "^30.0.2",
+    "mocha": "^11.7.0",
     "resolve-cwd": "^3.0.0",
-    "selenium-webdriver": "^4.26.0",
-    "sinon": "^19.0.2",
-    "typescript": "^5.6.3"
+    "selenium-webdriver": "^4.33.0",
+    "sinon": "^21.0.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "react": "^18.3.1",
