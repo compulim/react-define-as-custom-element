@@ -3,6 +3,8 @@ env:
 extends:
   - ../../.eslintrc.react.yml
 rules:
+  react/no-deprecated: off
+
   # Disable for convenience
   react/display-name: off
   # Disable for convenience

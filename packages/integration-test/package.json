@@ -51,6 +51,7 @@
     "react-define-as-custom-element": "^0.0.0-0"
   },
   "devDependencies": {
+    "@testduet/wait-for": "^0.1.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/mocha": "^10.0.9",
     "@types/node": "^20.17.6",
