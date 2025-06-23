@@ -86,6 +86,28 @@
       "react-test-renderer": "18.0.0"
     }
   },
+  "pinDependencies": {
+    "@testing-library/react": [
+      "^16",
+      "react@18"
+    ],
+    "@types/react": [
+      "^18",
+      "react@18"
+    ],
+    "@types/react-dom": [
+      "^18",
+      "react@18"
+    ],
+    "react": [
+      "^18",
+      "react@18"
+    ],
+    "react-dom": [
+      "^18",
+      "react@18"
+    ]
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.0.0"

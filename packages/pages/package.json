@@ -47,6 +47,24 @@
       "react-dom": "18.0.0"
     }
   },
+  "pinDependencies": {
+    "@types/react": [
+      "^18",
+      "react@18"
+    ],
+    "@types/react-dom": [
+      "^18",
+      "react@18"
+    ],
+    "react": [
+      "^18",
+      "react@18"
+    ],
+    "react-dom": [
+      "^18",
+      "react@18"
+    ]
+  },
   "localPeerDependencies": {
     "react-define-as-custom-element": "^0.0.0-0"
   },
