@@ -75,8 +75,8 @@
     "@tsconfig/strictest": "^2.0.5",
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.0.3",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
     "@types/selenium-webdriver": "^4.1.28",
     "core-js-pure": "^3.43.0",
     "esbuild": "^0.25.5",
@@ -88,8 +88,8 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "react": "^19.1.0",
+    "react": "^18.3.1",
     "react-define-as-custom-element": "^0.0.0-0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^18.3.1"
   }
 }
