@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Bumped dependencies, in PR [#XX](https://github.com/compulim/react-define-as-custom-element/pull/XX)
+- Bumped dependencies, in PR [#19](https://github.com/compulim/react-define-as-custom-element/pull/19)
   - Development dependencies
     - [`esbuild@0.25.5`](https://npmjs.com/package/esbuild/v/0.25.5)
 
