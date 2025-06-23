@@ -36,7 +36,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/compulim/react-define-as-custom-element.git"
+    "url": "https://github.com/compulim/react-define-as-custom-element.git"
   },
   "keywords": [
     "custom-elements",

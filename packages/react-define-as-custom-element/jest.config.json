@@ -7,6 +7,12 @@
       {
         "presets": [
           [
+            "@babel/preset-react",
+            {
+              "runtime": "classic"
+            }
+          ],
+          [
             "@babel/preset-typescript",
             {
               "allowDeclareFields": true
@@ -17,11 +23,10 @@
             {
               "modules": "commonjs",
               "targets": {
-                "node": "18"
+                "node": "20"
               }
             }
-          ],
-          "@babel/preset-react"
+          ]
         ],
         "sourceMaps": true
       }

@@ -18,3 +18,9 @@ render(
   </StrictMode>,
   rootElement
 );
+
+declare const IS_DEVELOPMENT: true | undefined;
+
+if (IS_DEVELOPMENT) {
+  new EventSource('/esbuild').addEventListener('change', () => location.reload());
+}
