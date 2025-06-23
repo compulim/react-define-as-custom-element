@@ -10,7 +10,7 @@ const paths = await readdir(rootPath);
 for (const path of paths) {
   const fullPath = resolve(rootPath, path);
 
-  if (!(await stat(fullPath)).isDirectory()) {
+  if (fullPath.endsWith('static') || !(await stat(fullPath)).isDirectory()) {
     continue;
   }
 
