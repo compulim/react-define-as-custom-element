@@ -1,10 +1,10 @@
-name: Bump scaffold
+name: 🧼 Bump scaffold
 
 on:
   workflow_dispatch:
     inputs:
       package-name:
-        default: react-define-as-custom-element
+        default: 'react-define-as-custom-element'
         description: Name of the package
         required: true
         type: string
