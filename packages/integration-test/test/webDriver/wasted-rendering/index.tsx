@@ -10,6 +10,7 @@ declare global {
 window.__numRendered__ = 0;
 
 const Header = ({ value }: { value?: string | undefined }) => {
+  // eslint-disable-next-line react-hooks/immutability
   window.__numRendered__++;
 
   return <h1>{value}</h1>;

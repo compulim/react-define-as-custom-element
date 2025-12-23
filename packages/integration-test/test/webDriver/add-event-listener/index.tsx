@@ -16,7 +16,7 @@ const MyForm = () => {
     element?.addEventListener('click', handleClick, { signal: abortController.signal });
 
     return () => abortController.abort();
-  }, [handleClick]);
+  }, [element, handleClick]);
 
   return <slot />;
 };

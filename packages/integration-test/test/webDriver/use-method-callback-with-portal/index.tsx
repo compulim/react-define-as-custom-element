@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { defineAsCustomElementWithPortal, useMethodCallback } from 'react-define-as-custom-element';
+// eslint-disable-next-line react/no-deprecated
 import { render } from 'react-dom';
 
 const MyLabel = () => {
