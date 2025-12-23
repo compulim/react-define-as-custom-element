@@ -1,13 +1,16 @@
 extends:
   - ./.eslintrc.custom.yml
 ignorePatterns:
-  - test/**/dist/**
   - test/webDriver/static/**
+  - test/webDriver/**/dist/**
 overrides:
   - env:
       commonjs: true
     files:
+      - '**/*.cjs'
       - '**/*.js'
+    rules:
+      import/no-commonjs: off
   - files:
       - '**/*.mjs'
     parserOptions:

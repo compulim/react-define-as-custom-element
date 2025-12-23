@@ -8,6 +8,7 @@ const MyCalculator = ({ operator }: Props) => {
 
   useMethodCallback(
     'compute',
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
     useCallback(
       operator === 'multiply'
         ? (left: number, right: number): number => {

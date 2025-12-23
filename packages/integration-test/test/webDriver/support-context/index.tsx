@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import { defineAsCustomElementWithPortal } from 'react-define-as-custom-element';
+// eslint-disable-next-line react/no-deprecated
 import { render } from 'react-dom';
 
 declare global {
