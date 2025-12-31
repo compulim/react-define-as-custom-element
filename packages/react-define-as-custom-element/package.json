@@ -33,7 +33,11 @@
     "prepack": "cp ../../CHANGELOG.md . && cp ../../LICENSE . && cp ../../README.md .",
     "start": "npm run build -- --onSuccess \"touch ../pages/package.json\" --watch",
     "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
-    "test": "jest"
+    "test": "npm run test:unit && npm run test:types",
+    "init": "npm run init:dev --if-present && npm run init:prod --if-present",
+    "init:dev": "npm install --save--dev @compulim/test-harness@0.0.0-0 @tsconfig/recommended @tsconfig/strictest @types/node @types/react@18 @types/react-dom@18 escape-string-regexp expect publint react@18 react-dom@18 react-test-renderer@18 tsup typescript",
+    "test:types": "node --experimental-strip-types --import @compulim/test-harness/test-types.import --test **/*.test-types.ts",
+    "test:unit": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import @compulim/test-harness/happy-dom.import --import @compulim/test-harness/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}"
   },
   "repository": {
     "type": "git",
@@ -64,7 +68,8 @@
       "@types/react-dom": "^16",
       "react": "16.8.0",
       "react-dom": "16.8.0",
-      "react-test-renderer": "16.8.0"
+      "react-test-renderer": "16.8.0",
+      "@types/react-test-renderer": "^16"
     }
   },
   "switch:react-17": {
@@ -75,7 +80,8 @@
       "@types/react-dom": "^17",
       "react": "17.0.0",
       "react-dom": "17.0.0",
-      "react-test-renderer": "17.0.0"
+      "react-test-renderer": "17.0.0",
+      "@types/react-test-renderer": "^17"
     }
   },
   "switch:react-18": {
@@ -84,7 +90,8 @@
       "@types/react-dom": "^18",
       "react": "18.0.0",
       "react-dom": "18.0.0",
-      "react-test-renderer": "18.0.0"
+      "react-test-renderer": "18.0.0",
+      "@types/react-test-renderer": "^18"
     }
   },
   "pinDependencies": {
@@ -93,20 +100,22 @@
       "react@18"
     ],
     "@types/react": [
-      "^18",
-      "react@18"
+      "18"
     ],
     "@types/react-dom": [
-      "^18",
-      "react@18"
+      "18"
     ],
     "react": [
-      "^18",
-      "react@18"
+      "18"
     ],
     "react-dom": [
-      "^18",
-      "react@18"
+      "18"
+    ],
+    "@types/react-test-renderer": [
+      "18"
+    ],
+    "react-test-renderer": [
+      "18"
     ]
   },
   "peerDependencies": {
@@ -143,5 +152,8 @@
     "math-random": "^2.0.1",
     "type-fest": "^5.3.1",
     "use-ref-from": "^0.1.0"
+  },
+  "localPeerDependencies": {
+    "@compulim/test-harness": "0.0.0-0"
   }
 }
