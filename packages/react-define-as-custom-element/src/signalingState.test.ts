@@ -1,6 +1,6 @@
-/// <reference types="jest" />
-
-import createSignalingState, { type SignalingState } from './signalingState';
+import { expect } from 'expect';
+import { beforeEach, describe, test } from 'node:test';
+import createSignalingState, { type SignalingState } from './signalingState.ts';
 
 describe('after call patchState', () => {
   let nextPromise: Promise<void>;
