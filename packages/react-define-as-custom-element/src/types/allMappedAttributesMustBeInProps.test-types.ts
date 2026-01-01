@@ -1,4 +1,4 @@
-import { defineAsCustomElement } from '../../src/index';
+import { defineAsCustomElement } from '../index.ts';
 
 type Props = Readonly<{
   value?: string | undefined;

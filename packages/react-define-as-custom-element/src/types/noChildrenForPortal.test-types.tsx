@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineAsCustomElementWithPortal } from '../../src/index';
+import { defineAsCustomElementWithPortal } from '../index.ts';
 
 const MyComponent = () => null;
 
