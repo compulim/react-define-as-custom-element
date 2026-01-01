@@ -4,7 +4,7 @@ import { readdir, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'path';
 
-const rootPath = resolve(fileURLToPath(import.meta.url), '../test/webDriver');
+const rootPath = resolve(fileURLToPath(import.meta.url), '../webDriver');
 const paths = await readdir(rootPath);
 
 for (const path of paths) {

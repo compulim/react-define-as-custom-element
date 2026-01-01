@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "lib": ["DOM", "ESNext"],
-    "jsx": "react",
-    "types": ["jest"]
-  }
-}
